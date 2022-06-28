@@ -27,24 +27,24 @@ import (
 	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
-// TestnetDenomMetadata defines the metadata for the tEVMOS denom on testnet
+// TestnetDenomMetadata defines the metadata for the tcanto denom on testnet
 var TestnetDenomMetadata = banktypes.Metadata{
-	Description: "The native EVM, governance and staking token of the Evmos testnet",
+	Description: "The native EVM, governance and staking token of the canto testnet",
 	DenomUnits: []*banktypes.DenomUnit{
 		{
-			Denom:    "atevmos",
+			Denom:    "atcanto",
 			Exponent: 0,
-			Aliases:  []string{"attotevmos"},
+			Aliases:  []string{"attotcanto"},
 		},
 		{
-			Denom:    "tevmos",
+			Denom:    "tcanto",
 			Exponent: 18,
 		},
 	},
-	Base:    "atevmos",
-	Display: "tevmos",
-	Name:    "Testnet Evmos",
-	Symbol:  "tEVMOS",
+	Base:    "atcanto",
+	Display: "tcanto",
+	Name:    "Testnet canto",
+	Symbol:  "tcanto",
 }
 
 // CreateUpgradeHandler creates an SDK upgrade handler for v5
@@ -186,7 +186,7 @@ func swapUnclaimedAction(cr claimstypes.ClaimsRecord, unclaimed, claimed claimst
 
 // MigrateContributorClaim migrates the claims record of a specific early
 // contributor (Blockchain at Berkeley) from one address to another.
-// See https://medium.com/evmos/the-evmos-rektdrop-abbe931ba823 for details about
+// See https://medium.com/canto/the-canto-rektdrop-abbe931ba823 for details about
 // Early Contributors.
 func MigrateContributorClaim(ctx sdk.Context, k *claimskeeper.Keeper) {
 	from := sdk.MustAccAddressFromBech32(ContributorAddrFrom)

@@ -5,7 +5,7 @@ import (
 
 	ethermint "github.com/Canto-Network/ethermint-v2/types"
 
-	evmos "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	canto "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
 	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 )
@@ -117,7 +117,7 @@ func (k Keeper) GetProportions(
 func (k Keeper) BondedRatio(ctx sdk.Context) sdk.Dec {
 	stakeSupply := k.stakingKeeper.StakingTokenSupply(ctx)
 
-	isMainnet := evmos.IsMainnet(ctx.ChainID())
+	isMainnet := canto.IsMainnet(ctx.ChainID())
 
 	if !stakeSupply.IsPositive() || (isMainnet && stakeSupply.LTE(teamAlloc)) {
 		return sdk.ZeroDec()
@@ -140,7 +140,7 @@ func (k Keeper) GetCirculatingSupply(ctx sdk.Context) sdk.Dec {
 	teamAllocation := teamAlloc.ToDec()
 
 	// Consider team allocation only on mainnet chain id
-	if evmos.IsMainnet(ctx.ChainID()) {
+	if canto.IsMainnet(ctx.ChainID()) {
 		circulatingSupply = circulatingSupply.Sub(teamAllocation)
 	}
 

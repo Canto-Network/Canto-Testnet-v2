@@ -9,11 +9,11 @@ parent:
 
 ## Abstract
 
-This document specifies the internal `x/fees` module of the Evmos Hub.
+This document specifies the internal `x/fees` module of the canto Hub.
 
-The `x/fees` module enables the Evmos Hub to support splitting transaction fees between block proposer and smart contract deployers. As a part of the [Evmos Token Model](https://evmos.blog/the-evmos-token-model-edc07014978b), this mechanism aims to increase the adoption of the Evmos Hub by offering a new stable source of income for smart contract deployers. Developers can register their smart contracts and everytime someone interacts with a registered smart contract, the contract deployer or their assigned withdrawal account receives a part of the transaction fees.
+The `x/fees` module enables the canto Hub to support splitting transaction fees between block proposer and smart contract deployers. As a part of the [canto Token Model](https://canto.blog/the-canto-token-model-edc07014978b), this mechanism aims to increase the adoption of the canto Hub by offering a new stable source of income for smart contract deployers. Developers can register their smart contracts and everytime someone interacts with a registered smart contract, the contract deployer or their assigned withdrawal account receives a part of the transaction fees.
 
-Together, all registered smart contracts make up the Evmos dApp Store: paying developers and network operators for their services via built-in shared fee revenue model.
+Together, all registered smart contracts make up the canto dApp Store: paying developers and network operators for their services via built-in shared fee revenue model.
 
 ## Contents
 

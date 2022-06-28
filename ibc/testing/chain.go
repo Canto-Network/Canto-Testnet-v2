@@ -23,8 +23,8 @@ import (
 	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 )
 
-// ChainIDPrefix defines the default chain ID prefix for Evmos test chains
-var ChainIDPrefix = "evmos_9000-"
+// ChainIDPrefix defines the default chain ID prefix for canto test chains
+var ChainIDPrefix = "canto_9000-"
 
 func init() {
 	ibcgotesting.ChainIDPrefix = ChainIDPrefix

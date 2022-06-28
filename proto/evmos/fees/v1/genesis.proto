@@ -1,10 +1,10 @@
 syntax = "proto3";
-package evmos.fees.v1;
-import "evmos/fees/v1/fees.proto";
+package canto.fees.v1;
+import "canto/fees/v1/fees.proto";
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/evmos/evmos/v6/x/fees/types";
+option go_package = "github.com/canto/canto/v6/x/fees/types";
 
 // GenesisState defines the module's genesis state.
 message GenesisState {

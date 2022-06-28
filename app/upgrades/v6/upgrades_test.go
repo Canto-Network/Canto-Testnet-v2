@@ -19,14 +19,14 @@ import (
 
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
 	v6 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v6"
-	evmostypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	cantotypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
 )
 
 type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *app.Evmos
+	app         *app.Canto
 	consAddress sdk.ConsAddress
 }
 
@@ -83,7 +83,7 @@ func (suite *UpgradeTestSuite) TestUpdateSlashingParams() {
 	}{
 		{
 			"success",
-			evmostypes.MainnetChainID + "-2",
+			cantotypes.MainnetChainID + "-2",
 			func() {
 				params := suite.app.SlashingKeeper.GetParams(suite.ctx)
 				params.SignedBlocksWindow = 30000

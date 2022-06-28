@@ -23,7 +23,7 @@ import (
 
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
 	v5 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v5"
-	evmostypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	cantotypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
 	claimskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
 	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
@@ -32,7 +32,7 @@ type UpgradeTestSuite struct {
 	suite.Suite
 
 	ctx         sdk.Context
-	app         *app.Evmos
+	app         *app.Canto
 	consAddress sdk.ConsAddress
 }
 
@@ -121,7 +121,7 @@ func (suite *UpgradeTestSuite) TestResolveAirdrop() {
 
 	for _, tc := range testCases {
 		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(evmostypes.TestnetChainID + "-2") // reset
+			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
 
 			addr := addClaimRecord(suite.ctx, suite.app.ClaimsKeeper, tc.original)
 
@@ -169,7 +169,7 @@ func (suite *UpgradeTestSuite) TestMigrateClaim() {
 	}
 	for _, tc := range testCases {
 		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(evmostypes.TestnetChainID + "-2") // reset
+			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
 
 			tc.malleate()
 
@@ -230,7 +230,7 @@ func (suite *UpgradeTestSuite) TestUpdateConsensusParams() {
 
 	for _, tc := range testCases {
 		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(evmostypes.TestnetChainID + "-2") // reset
+			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
 
 			tc.malleate()
 
@@ -262,7 +262,7 @@ func (suite *UpgradeTestSuite) TestUpdateIBCDenomTraces() {
 			"native IBC tokens",
 			ibctransfertypes.Traces{
 				{
-					BaseDenom: "aevmos",
+					BaseDenom: "acanto",
 					Path:      "",
 				},
 				{
@@ -284,7 +284,7 @@ func (suite *UpgradeTestSuite) TestUpdateIBCDenomTraces() {
 			},
 			ibctransfertypes.Traces{
 				{
-					BaseDenom: "aevmos",
+					BaseDenom: "acanto",
 					Path:      "",
 				},
 				{
@@ -309,7 +309,7 @@ func (suite *UpgradeTestSuite) TestUpdateIBCDenomTraces() {
 			"with invalid tokens",
 			ibctransfertypes.Traces{
 				{
-					BaseDenom: "aevmos",
+					BaseDenom: "acanto",
 					Path:      "",
 				},
 				{
@@ -331,7 +331,7 @@ func (suite *UpgradeTestSuite) TestUpdateIBCDenomTraces() {
 			},
 			ibctransfertypes.Traces{
 				{
-					BaseDenom: "aevmos",
+					BaseDenom: "acanto",
 					Path:      "",
 				},
 				{
@@ -356,7 +356,7 @@ func (suite *UpgradeTestSuite) TestUpdateIBCDenomTraces() {
 
 	for _, tc := range testCases {
 		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(evmostypes.TestnetChainID + "-2") // reset
+			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
 
 			for _, dt := range tc.originalTraces {
 				suite.app.TransferKeeper.SetDenomTrace(suite.ctx, dt)

@@ -13,7 +13,7 @@ import (
 	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	claimtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	// claimtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
 	evm "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -36,7 +36,7 @@ type KeeperTestSuite struct {
 
 	ctx sdk.Context
 
-	app            *app.Evmos
+	app            *app.Canto
 	queryClient    types.QueryClient
 	queryClientEvm evm.QueryClient
 	address        common.Address
@@ -85,7 +85,7 @@ func (suite *KeeperTestSuite) SetupApp() {
 	suite.consAddress = sdk.ConsAddress(privCons.PubKey().Address())
 	suite.ctx = suite.app.BaseApp.NewContext(false, tmproto.Header{
 		Height:          1,
-		ChainID:         "evmos_9001-1",
+		ChainID:         "canto_9001-1",
 		Time:            time.Now().UTC(),
 		ProposerAddress: suite.consAddress.Bytes(),
 

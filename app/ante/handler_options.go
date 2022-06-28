@@ -17,7 +17,7 @@ import (
 	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 )
 
-// HandlerOptions defines the list of module keepers required to run the Evmos
+// HandlerOptions defines the list of module keepers required to run the canto
 // AnteHandler decorators.
 type HandlerOptions struct {
 	AccountKeeper   evmtypes.AccountKeeper

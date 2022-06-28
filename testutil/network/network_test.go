@@ -14,7 +14,7 @@ import (
 	"github.com/Canto-Network/ethermint-v2/testutil/network"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	evmosnetwork "github.com/Canto-Network/Canto-Testnet-v2/v0/testutil/network"
+	cantonetwork "github.com/Canto-Network/Canto-Testnet-v2/v0/testutil/network"
 )
 
 type IntegrationTestSuite struct {
@@ -27,7 +27,7 @@ func (s *IntegrationTestSuite) SetupSuite() {
 	s.T().Log("setting up integration test suite")
 
 	var err error
-	cfg := evmosnetwork.DefaultConfig()
+	cfg := cantonetwork.DefaultConfig()
 	cfg.JSONRPCAddress = config.DefaultJSONRPCAddress
 	cfg.NumValidators = 1
 
