@@ -1,4 +1,4 @@
-module github.com/Canto-Network/Canto-Testnet-v2
+module github.com/Canto-Network/Canto-Testnet-v2/v0
 
 go 1.18
 
