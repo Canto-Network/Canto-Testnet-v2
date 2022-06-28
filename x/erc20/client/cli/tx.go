@@ -15,9 +15,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	ethermint "github.com/evmos/ethermint/types"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 
-	"github.com/evmos/evmos/v6/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
 )
 
 // NewTxCmd returns a root CLI command handler for erc20 transaction commands

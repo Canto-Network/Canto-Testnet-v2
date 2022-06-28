@@ -3,12 +3,12 @@ package keeper_test
 import (
 	"fmt"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
+	"github.com/Canto-Network/ethermint-v2/tests"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/evmos/ethermint/crypto/ethsecp256k1"
-	"github.com/evmos/ethermint/tests"
-	"github.com/evmos/evmos/v6/testutil"
 	"github.com/stretchr/testify/mock"
 
 	transfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
@@ -17,11 +17,11 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v3/testing"
 	ibcmock "github.com/cosmos/ibc-go/v3/testing/mock"
 
-	claimstypes "github.com/evmos/evmos/v6/x/claims/types"
-	incentivestypes "github.com/evmos/evmos/v6/x/incentives/types"
-	"github.com/evmos/evmos/v6/x/recovery/keeper"
-	"github.com/evmos/evmos/v6/x/recovery/types"
-	vestingtypes "github.com/evmos/evmos/v6/x/vesting/types"
+	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
+	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestOnRecvPacket() {

@@ -6,8 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/evmos/ethermint/tests"
-	"github.com/evmos/evmos/v6/x/fees/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
+	"github.com/Canto-Network/ethermint-v2/tests"
 )
 
 func (suite *KeeperTestSuite) TestFees() {

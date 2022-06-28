@@ -3,9 +3,9 @@ package types
 import (
 	"fmt"
 
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	ethermint "github.com/evmos/ethermint/types"
 )
 
 // NewIncentive returns an instance of Incentive

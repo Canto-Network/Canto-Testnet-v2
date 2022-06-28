@@ -18,9 +18,9 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/evmos/evmos/v6/x/incentives/client/cli"
-	"github.com/evmos/evmos/v6/x/incentives/keeper"
-	"github.com/evmos/evmos/v6/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/client/cli"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 )
 
 // type check to ensure the interface is properly implemented

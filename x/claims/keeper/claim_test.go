@@ -4,6 +4,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	inflationtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
+	"github.com/Canto-Network/ethermint-v2/tests"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
@@ -11,13 +16,8 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/ethermint/crypto/ethsecp256k1"
-	"github.com/evmos/ethermint/tests"
-	ethermint "github.com/evmos/ethermint/types"
-	"github.com/evmos/evmos/v6/testutil"
-	inflationtypes "github.com/evmos/evmos/v6/x/inflation/types"
 
-	"github.com/evmos/evmos/v6/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
 func (suite *KeeperTestSuite) TestGetClaimableAmountForAction() {

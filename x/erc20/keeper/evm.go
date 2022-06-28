@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"math/big"
 
+	"github.com/Canto-Network/ethermint-v2/server/config"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -12,11 +14,9 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/evmos/ethermint/server/config"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/evmos/evmos/v6/contracts"
-	"github.com/evmos/evmos/v6/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/contracts"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
 )
 
 // DeployERC20Contract creates and deploys an ERC20 contract on the EVM with the

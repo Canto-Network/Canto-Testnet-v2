@@ -12,11 +12,11 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/v3/modules/core/04-channel/types"
 	ibcgotesting "github.com/cosmos/ibc-go/v3/testing"
 
-	"github.com/evmos/ethermint/tests"
-	"github.com/evmos/evmos/v6/app"
-	ibctesting "github.com/evmos/evmos/v6/ibc/testing"
-	"github.com/evmos/evmos/v6/testutil"
-	"github.com/evmos/evmos/v6/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	ibctesting "github.com/Canto-Network/Canto-Testnet-v2/v0/ibc/testing"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	"github.com/Canto-Network/ethermint-v2/tests"
 )
 
 type IBCTestingSuite struct {

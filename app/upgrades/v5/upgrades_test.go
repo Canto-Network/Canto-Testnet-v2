@@ -15,17 +15,17 @@ import (
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/evmos/ethermint/crypto/ethsecp256k1"
-	"github.com/evmos/ethermint/tests"
-	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
+	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
+	"github.com/Canto-Network/ethermint-v2/tests"
+	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
 	ibctransfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 
-	"github.com/evmos/evmos/v6/app"
-	v5 "github.com/evmos/evmos/v6/app/upgrades/v5"
-	evmostypes "github.com/evmos/evmos/v6/types"
-	claimskeeper "github.com/evmos/evmos/v6/x/claims/keeper"
-	claimstypes "github.com/evmos/evmos/v6/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	v5 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v5"
+	evmostypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	claimskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
+	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
 type UpgradeTestSuite struct {

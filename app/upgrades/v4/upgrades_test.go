@@ -16,11 +16,11 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/v3/modules/core/02-client/types"
 	tmclient "github.com/cosmos/ibc-go/v3/modules/light-clients/07-tendermint/types"
 
-	"github.com/evmos/ethermint/crypto/ethsecp256k1"
-	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
+	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
+	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
-	"github.com/evmos/evmos/v6/app"
-	v4 "github.com/evmos/evmos/v6/app/upgrades/v4"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	v4 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v4"
 )
 
 type UpgradeTestSuite struct {

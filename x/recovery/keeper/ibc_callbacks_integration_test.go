@@ -3,13 +3,13 @@ package keeper_test
 import (
 	"time"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	claimtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	transfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v3/modules/core/04-channel/types"
-	"github.com/evmos/evmos/v6/app"
-	"github.com/evmos/evmos/v6/testutil"
-	claimtypes "github.com/evmos/evmos/v6/x/claims/types"
-	"github.com/evmos/evmos/v6/x/recovery/types"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

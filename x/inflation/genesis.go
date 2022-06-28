@@ -1,9 +1,9 @@
 package inflation
 
 import (
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/evmos/evmos/v6/x/inflation/keeper"
-	"github.com/evmos/evmos/v6/x/inflation/types"
 )
 
 // InitGenesis import module genesis

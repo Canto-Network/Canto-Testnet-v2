@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	v2 "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/migrations/v2"
+	claims "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	"github.com/Canto-Network/ethermint-v2/encoding"
 	"github.com/cosmos/cosmos-sdk/testutil"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/evmos/ethermint/encoding"
-	"github.com/evmos/evmos/v6/app"
-	v2 "github.com/evmos/evmos/v6/x/claims/migrations/v2"
-	claims "github.com/evmos/evmos/v6/x/claims/types"
 	"github.com/stretchr/testify/require"
 )
 

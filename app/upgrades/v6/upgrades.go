@@ -11,12 +11,12 @@ import (
 
 	ibctransferkeeper "github.com/cosmos/ibc-go/v3/modules/apps/transfer/keeper"
 
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
-	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
+	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
-	v5 "github.com/evmos/evmos/v6/app/upgrades/v5"
-	"github.com/evmos/evmos/v6/types"
-	claimskeeper "github.com/evmos/evmos/v6/x/claims/keeper"
+	v5 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v5"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	claimskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
 )
 
 // CreateUpgradeHandler creates an SDK upgrade handler for v5

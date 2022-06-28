@@ -27,6 +27,8 @@ import (
 	dbm "github.com/tendermint/tm-db"
 	"google.golang.org/grpc"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	"github.com/Canto-Network/ethermint-v2/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -47,13 +49,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/evmos/ethermint/crypto/hd"
-	"github.com/evmos/evmos/v6/app"
 
-	"github.com/evmos/ethermint/encoding"
-	"github.com/evmos/ethermint/server/config"
-	ethermint "github.com/evmos/ethermint/types"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
+	"github.com/Canto-Network/ethermint-v2/encoding"
+	"github.com/Canto-Network/ethermint-v2/server/config"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 )
 
 // package-wide network lock to only allow one test network at a time

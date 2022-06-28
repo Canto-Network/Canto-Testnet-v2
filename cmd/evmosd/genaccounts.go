@@ -20,13 +20,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
-	ethermint "github.com/evmos/ethermint/types"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 
-	evmoskr "github.com/evmos/evmos/v6/crypto/keyring"
+	evmoskr "github.com/Canto-Network/Canto-Testnet-v2/v0/crypto/keyring"
 
-	vestingcli "github.com/evmos/evmos/v6/x/vesting/client/cli"
-	vestingtypes "github.com/evmos/evmos/v6/x/vesting/types"
+	vestingcli "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/client/cli"
+	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 )
 
 const (

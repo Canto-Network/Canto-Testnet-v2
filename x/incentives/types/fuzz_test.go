@@ -5,7 +5,7 @@ package types
 import (
 	"testing"
 
-	"github.com/evmos/ethermint/tests"
+	"github.com/Canto-Network/ethermint-v2/tests"
 )
 
 func FuzzSplitGasMeterKey(f *testing.F) {

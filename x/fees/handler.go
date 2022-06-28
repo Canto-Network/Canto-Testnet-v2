@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/evmos/evmos/v6/x/fees/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
 )
 
 // NewHandler defines the fees module handler instance

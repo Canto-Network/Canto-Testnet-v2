@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Canto-Network/ethermint-v2/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/evmos/ethermint/tests"
 
-	"github.com/evmos/evmos/v6/testutil"
-	"github.com/evmos/evmos/v6/x/claims/types"
-	vestingtypes "github.com/evmos/evmos/v6/x/vesting/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 )
 
 func (suite *KeeperTestSuite) TestEndBlock() {

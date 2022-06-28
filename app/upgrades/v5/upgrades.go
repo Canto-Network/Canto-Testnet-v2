@@ -18,13 +18,13 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v3/modules/apps/transfer/keeper"
 	ibctransfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
 
-	feemarketv010types "github.com/evmos/ethermint/x/feemarket/migrations/v010/types"
-	feemarketv011 "github.com/evmos/ethermint/x/feemarket/migrations/v011"
-	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
+	feemarketv010types "github.com/Canto-Network/ethermint-v2/x/feemarket/migrations/v010/types"
+	feemarketv011 "github.com/Canto-Network/ethermint-v2/x/feemarket/migrations/v011"
+	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
-	"github.com/evmos/evmos/v6/types"
-	claimskeeper "github.com/evmos/evmos/v6/x/claims/keeper"
-	claimstypes "github.com/evmos/evmos/v6/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	claimskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
+	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
 // TestnetDenomMetadata defines the metadata for the tEVMOS denom on testnet

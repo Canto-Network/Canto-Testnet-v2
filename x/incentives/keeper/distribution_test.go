@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/evmos/evmos/v6/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 )
 
 func (suite *KeeperTestSuite) TestDistributeIncentives() {

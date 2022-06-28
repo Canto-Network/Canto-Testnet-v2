@@ -14,12 +14,12 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/evmos/ethermint/crypto/ethsecp256k1"
-	feemarkettypes "github.com/evmos/ethermint/x/feemarket/types"
+	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
+	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
-	"github.com/evmos/evmos/v6/app"
-	v6 "github.com/evmos/evmos/v6/app/upgrades/v6"
-	evmostypes "github.com/evmos/evmos/v6/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	v6 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v6"
+	evmostypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
 )
 
 type UpgradeTestSuite struct {

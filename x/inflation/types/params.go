@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
+	evm "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	evm "github.com/evmos/ethermint/x/evm/types"
 )
 
 var DefaultInflationDenom = evm.DefaultEVMDenom

@@ -17,9 +17,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/evmos/evmos/v6/x/claims/client/cli"
-	"github.com/evmos/evmos/v6/x/claims/keeper"
-	"github.com/evmos/evmos/v6/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/client/cli"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
 var (

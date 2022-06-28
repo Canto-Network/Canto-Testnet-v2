@@ -11,10 +11,10 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	"github.com/evmos/ethermint/x/evm/statedb"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
+	"github.com/Canto-Network/ethermint-v2/x/evm/statedb"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 
-	inflationtypes "github.com/evmos/evmos/v6/x/inflation/types"
+	inflationtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 )
 
 // AccountKeeper defines the expected interface needed to retrieve account info.

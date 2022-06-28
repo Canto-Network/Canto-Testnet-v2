@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	"github.com/Canto-Network/ethermint-v2/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/evmos/ethermint/tests"
-	"github.com/evmos/evmos/v6/testutil"
-	"github.com/evmos/evmos/v6/x/claims/types"
 )
 
 func (suite *KeeperTestSuite) TestAfterProposalVote() {

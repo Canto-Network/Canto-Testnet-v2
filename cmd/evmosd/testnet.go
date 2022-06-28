@@ -36,16 +36,16 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/evmos/ethermint/crypto/hd"
-	"github.com/evmos/ethermint/server/config"
-	srvflags "github.com/evmos/ethermint/server/flags"
+	"github.com/Canto-Network/ethermint-v2/crypto/hd"
+	"github.com/Canto-Network/ethermint-v2/server/config"
+	srvflags "github.com/Canto-Network/ethermint-v2/server/flags"
 
-	ethermint "github.com/evmos/ethermint/types"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 
-	cmdcfg "github.com/evmos/evmos/v6/cmd/config"
-	evmoskr "github.com/evmos/evmos/v6/crypto/keyring"
-	"github.com/evmos/evmos/v6/testutil/network"
+	cmdcfg "github.com/Canto-Network/Canto-Testnet-v2/v0/cmd/config"
+	evmoskr "github.com/Canto-Network/Canto-Testnet-v2/v0/crypto/keyring"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil/network"
 )
 
 var (

@@ -7,22 +7,22 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/evmos/ethermint/encoding"
-	"github.com/evmos/ethermint/tests"
-	"github.com/evmos/evmos/v6/app"
-	"github.com/evmos/evmos/v6/app/ante"
-	"github.com/evmos/evmos/v6/testutil"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app/ante"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
+	"github.com/Canto-Network/ethermint-v2/encoding"
+	"github.com/Canto-Network/ethermint-v2/tests"
 
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	sdkvesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/evmos/evmos/v6/x/vesting/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 )
 
 // Clawback vesting with Cliff and Lock. In this case the cliff is reached

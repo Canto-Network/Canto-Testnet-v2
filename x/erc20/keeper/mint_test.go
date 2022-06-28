@@ -3,11 +3,11 @@ package keeper_test
 import (
 	"fmt"
 
+	"github.com/Canto-Network/ethermint-v2/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/evmos/ethermint/tests"
 
-	"github.com/evmos/evmos/v6/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
 )
 
 func (suite *KeeperTestSuite) TestMintingEnabled() {

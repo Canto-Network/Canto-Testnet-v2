@@ -3,11 +3,11 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	ethermint "github.com/evmos/ethermint/types"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 
-	evmos "github.com/evmos/evmos/v6/types"
-	incentivestypes "github.com/evmos/evmos/v6/x/incentives/types"
-	"github.com/evmos/evmos/v6/x/inflation/types"
+	evmos "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 )
 
 // 200M token at year 4 allocated to the team

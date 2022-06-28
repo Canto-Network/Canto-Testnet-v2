@@ -3,11 +3,11 @@ package keeper_test
 import (
 	"fmt"
 
+	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	ethermint "github.com/evmos/ethermint/types"
-	incentivestypes "github.com/evmos/evmos/v6/x/incentives/types"
-	"github.com/evmos/evmos/v6/x/inflation/types"
 )
 
 func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {

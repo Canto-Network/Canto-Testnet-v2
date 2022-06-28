@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"fmt"
 
+	"github.com/Canto-Network/ethermint-v2/tests"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/evmos/ethermint/tests"
 
-	"github.com/evmos/evmos/v6/x/incentives/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 )
 
 func (suite *KeeperTestSuite) TestGetIncentivesGasMeters() {

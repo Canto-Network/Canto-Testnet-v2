@@ -9,10 +9,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/evmos/ethermint/x/evm/statedb"
-	evmtypes "github.com/evmos/ethermint/x/evm/types"
-	"github.com/evmos/evmos/v6/x/erc20/keeper"
-	"github.com/evmos/evmos/v6/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
+	"github.com/Canto-Network/ethermint-v2/x/evm/statedb"
+	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 )
 
 func (suite *KeeperTestSuite) TestConvertCoinNativeCoin() {

@@ -1,8 +1,8 @@
 package types
 
 import (
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	"github.com/ethereum/go-ethereum/common"
-	ethermint "github.com/evmos/ethermint/types"
 )
 
 // NewGasMeter returns an instance of GasMeter
