@@ -905,8 +905,9 @@ func checkEthTx(priv *ethsecp256k1.PrivKey, msgEthereumTx *evmtypes.MsgEthereumT
 func prepareCosmosTx(priv *ethsecp256k1.PrivKey, gasPrice *sdk.Int, msgs ...sdk.Msg) []byte {
 	encodingConfig := encoding.MakeConfig(app.ModuleBasics)
 	accountAddress := sdk.AccAddress(priv.PubKey().Address().Bytes())
-	denom := s.app.ClaimsKeeper.GetParams(s.ctx).ClaimsDenom
+	// denom := s.app.ClaimsKeeper.GetParams(s.ctx).ClaimsDenom
 
+	denom := "acanto"
 	txBuilder := encodingConfig.TxConfig.NewTxBuilder()
 
 	txBuilder.SetGasLimit(1000000)

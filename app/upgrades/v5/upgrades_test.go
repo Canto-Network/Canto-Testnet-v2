@@ -16,7 +16,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
-	"github.com/Canto-Network/ethermint-v2/tests"
+	// "github.com/Canto-Network/ethermint-v2/tests"
 	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
 	ibctransfertypes "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types"
@@ -24,8 +24,6 @@ import (
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
 	v5 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v5"
 	cantotypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
-	claimskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/keeper"
-	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 )
 
 type UpgradeTestSuite struct {
@@ -81,112 +79,6 @@ func TestUpgradeTestSuite(t *testing.T) {
 	suite.Run(t, s)
 }
 
-func (suite *UpgradeTestSuite) TestResolveAirdrop() {
-	testCases := []struct {
-		name     string
-		original []bool
-		expected []bool
-	}{
-		{
-			"Swap IBC<->vote",
-			[]bool{false, false, true, true},
-			[]bool{true, false, true, false},
-		},
-		{
-			"Swap IBC<->EVM",
-			[]bool{false, true, false, true},
-			[]bool{false, true, true, false},
-		},
-		{
-			"Swap IBC<->EVM",
-			[]bool{true, false, false, true},
-			[]bool{true, false, true, false},
-		},
-		{
-			"Swap vote<->EVM",
-			[]bool{true, false, false, false},
-			[]bool{false, false, true, false},
-		},
-		{
-			"Nothing changes",
-			[]bool{false, false, false, false},
-			[]bool{false, false, false, false},
-		},
-		{
-			"Swap IBC<->EVM",
-			[]bool{true, true, false, true},
-			[]bool{true, true, true, false},
-		},
-	}
-
-	for _, tc := range testCases {
-		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
-
-			addr := addClaimRecord(suite.ctx, suite.app.ClaimsKeeper, tc.original)
-
-			v5.ResolveAirdrop(suite.ctx, suite.app.ClaimsKeeper)
-
-			cr, found := suite.app.ClaimsKeeper.GetClaimsRecord(suite.ctx, addr)
-			suite.Require().Equal(tc.expected, cr.ActionsCompleted)
-			suite.Require().True(found)
-		})
-	}
-}
-
-func addClaimRecord(ctx sdk.Context, k *claimskeeper.Keeper, actions []bool) sdk.AccAddress {
-	addr := sdk.AccAddress(tests.GenerateAddress().Bytes())
-	cr := claimstypes.ClaimsRecord{InitialClaimableAmount: sdk.NewInt(100), ActionsCompleted: actions}
-	k.SetClaimsRecord(ctx, addr, cr)
-	return addr
-}
-
-func (suite *UpgradeTestSuite) TestMigrateClaim() {
-	from, err := sdk.AccAddressFromBech32(v5.ContributorAddrFrom)
-	suite.Require().NoError(err)
-	to, err := sdk.AccAddressFromBech32(v5.ContributorAddrTo)
-	suite.Require().NoError(err)
-	cr := claimstypes.ClaimsRecord{InitialClaimableAmount: sdk.NewInt(100), ActionsCompleted: []bool{false, false, false, false}}
-
-	testCases := []struct {
-		name     string
-		malleate func()
-		expPass  bool
-	}{
-		{
-			"with claims record",
-			func() {
-				suite.app.ClaimsKeeper.SetClaimsRecord(suite.ctx, from, cr)
-			},
-			true,
-		},
-		{
-			"without claims record",
-			func() {
-			},
-			false,
-		},
-	}
-	for _, tc := range testCases {
-		suite.Run(fmt.Sprintf("Case %s", tc.name), func() {
-			suite.SetupTest(cantotypes.TestnetChainID + "-2") // reset
-
-			tc.malleate()
-
-			v5.MigrateContributorClaim(suite.ctx, suite.app.ClaimsKeeper)
-
-			_, foundFrom := suite.app.ClaimsKeeper.GetClaimsRecord(suite.ctx, from)
-			crTo, foundTo := suite.app.ClaimsKeeper.GetClaimsRecord(suite.ctx, to)
-			if tc.expPass {
-				suite.Require().False(foundFrom)
-				suite.Require().True(foundTo)
-				suite.Require().Equal(crTo, cr)
-			} else {
-				suite.Require().False(foundTo)
-			}
-		})
-	}
-}
 
 func (suite *UpgradeTestSuite) TestUpdateConsensusParams() {
 	unbondingDuration := suite.app.GetStakingKeeper().UnbondingTime(suite.ctx)

@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	// claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
 	"github.com/Canto-Network/ethermint-v2/encoding"
 	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
@@ -69,7 +69,7 @@ func (suite *AnteTestSuite) SetupTest(isCheckTx bool) {
 		LastResultsHash:    tmhash.Sum([]byte("last_result")),
 	})
 
-	suite.denom = claimstypes.DefaultClaimsDenom
+	suite.denom = "acanto"
 	evmParams := suite.app.EvmKeeper.GetParams(suite.ctx)
 	evmParams.EvmDenom = suite.denom
 	suite.app.EvmKeeper.SetParams(suite.ctx, evmParams)

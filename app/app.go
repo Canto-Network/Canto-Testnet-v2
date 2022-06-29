@@ -503,11 +503,11 @@ func NewCanto(
 		app.BankKeeper,
 		app.IBCKeeper.ChannelKeeper,
 		app.TransferKeeper,
+		nil,
 	)
 
 	// Set the ICS4 wrappers for claims and recovery middlewares
 	app.RecoveryKeeper.SetICS4Wrapper(app.IBCKeeper.ChannelKeeper)
-	app.ClaimsKeeper.SetICS4Wrapper(app.RecoveryKeeper)
 	// NOTE: ICS4 wrapper for Transfer Keeper already set
 
 	transferModule := transfer.NewAppModule(app.TransferKeeper)
@@ -521,7 +521,6 @@ func NewCanto(
 	var transferStack porttypes.IBCModule
 
 	transferStack = transfer.NewIBCModule(app.TransferKeeper)
-	transferStack = claims.NewIBCMiddleware(*app.ClaimsKeeper, transferStack)
 	transferStack = recovery.NewIBCMiddleware(*app.RecoveryKeeper, transferStack)
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -575,7 +574,6 @@ func NewCanto(
 		erc20.NewAppModule(app.Erc20Keeper, app.AccountKeeper),
 		incentives.NewAppModule(app.IncentivesKeeper, app.AccountKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
-		claims.NewAppModule(appCodec, *app.ClaimsKeeper),
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
 		fees.NewAppModule(app.FeesKeeper, app.AccountKeeper),
@@ -612,7 +610,6 @@ func NewCanto(
 		vestingtypes.ModuleName,
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
-		claimstypes.ModuleName,
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		feestypes.ModuleName,
@@ -627,7 +624,6 @@ func NewCanto(
 		feemarkettypes.ModuleName,
 		// Note: epochs' endblock should be "real" end of epochs, we keep epochs endblock at the end
 		epochstypes.ModuleName,
-		claimstypes.ModuleName,
 		// no-op modules
 		ibchost.ModuleName,
 		ibctransfertypes.ModuleName,
@@ -663,7 +659,6 @@ func NewCanto(
 		banktypes.ModuleName,
 		distrtypes.ModuleName,
 		// NOTE: staking requires the claiming hook
-		claimstypes.ModuleName,
 		stakingtypes.ModuleName,
 		slashingtypes.ModuleName,
 		govtypes.ModuleName,
@@ -1005,7 +1000,6 @@ func initParamsKeeper(
 	// Canto subspaces
 	paramsKeeper.Subspace(inflationtypes.ModuleName)
 	paramsKeeper.Subspace(erc20types.ModuleName)
-	paramsKeeper.Subspace(claimstypes.ModuleName)
 	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
 	paramsKeeper.Subspace(feestypes.ModuleName)
@@ -1036,7 +1030,6 @@ func (app *Canto) setupUpgradeHandlers() {
 		v5.CreateUpgradeHandler(
 			app.mm, app.configurator,
 			app.BankKeeper,
-			app.ClaimsKeeper,
 			app.StakingKeeper,
 			app.ParamsKeeper,
 			app.TransferKeeper,
@@ -1050,7 +1043,6 @@ func (app *Canto) setupUpgradeHandlers() {
 		v6.CreateUpgradeHandler(
 			app.mm, app.configurator,
 			app.BankKeeper,
-			app.ClaimsKeeper,
 			app.StakingKeeper,
 			app.ParamsKeeper,
 			app.TransferKeeper,

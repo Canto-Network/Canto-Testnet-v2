@@ -63,7 +63,7 @@ func (suite *IBCTestingSuite) SetupTest() {
 	coins := sdk.NewCoins(coincanto)
 	err := suite.cantoChain.App.(*app.canto).BankKeeper.MintCoins(suite.cantoChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
-	err = suite.cantoChain.App.(*app.canto).BankKeeper.SendCoinsFromModuleToAccount(suite.cantoChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
+	err = suite.cantoChain.App.(*app.Canto).BankKeeper.SendCoinsFromModuleToAccount(suite.cantoChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
 	// Mint coins on the osmosis side which we'll use to unlock our acanto
@@ -82,7 +82,9 @@ func (suite *IBCTestingSuite) SetupTest() {
 	err = suite.IBCCosmosChain.GetSimApp().BankKeeper.SendCoinsFromModuleToAccount(suite.IBCCosmosChain.GetContext(), minttypes.ModuleName, suite.IBCCosmosChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	claimparams := claimtypes.DefaultParams()
+	// claimparams := claimtypes.DefaultParams()
+	claimparams := "acanto"
+
 	claimparams.AirdropStartTime = suite.cantoChain.GetContext().BlockTime()
 	claimparams.EnableClaims = true
 	suite.cantoChain.App.(*app.canto).ClaimsKeeper.SetParams(suite.cantoChain.GetContext(), claimparams)

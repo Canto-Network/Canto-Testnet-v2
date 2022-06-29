@@ -18,7 +18,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
 )
 
@@ -33,7 +32,7 @@ type KeeperTestSuite struct {
 
 	ctx sdk.Context
 
-	app         *app.canto
+	app         *app.Canto
 	queryClient types.QueryClient
 }
 
@@ -71,12 +70,12 @@ func (suite *KeeperTestSuite) SetupTest() {
 	types.RegisterQueryServer(queryHelper, suite.app.RecoveryKeeper)
 	suite.queryClient = types.NewQueryClient(queryHelper)
 
-	claimsParams := claimstypes.DefaultParams()
-	claimsParams.AirdropStartTime = suite.ctx.BlockTime()
-	suite.app.ClaimsKeeper.SetParams(suite.ctx, claimsParams)
+	// claimsParams := claimstypes.DefaultParams()
+	// claimsParams.AirdropStartTime = suite.ctx.BlockTime()
+	// suite.app.ClaimsKeeper.SetParams(suite.ctx, claimsParams)
 
 	stakingParams := suite.app.StakingKeeper.GetParams(suite.ctx)
-	stakingParams.BondDenom = claimsParams.GetClaimsDenom()
+	stakingParams.BondDenom = "acanto"
 	suite.app.StakingKeeper.SetParams(suite.ctx, stakingParams)
 }
 
