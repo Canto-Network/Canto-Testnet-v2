@@ -503,7 +503,6 @@ func NewCanto(
 		app.BankKeeper,
 		app.IBCKeeper.ChannelKeeper,
 		app.TransferKeeper,
-		nil,
 	)
 
 	// Set the ICS4 wrappers for claims and recovery middlewares

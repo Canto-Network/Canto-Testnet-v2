@@ -17,7 +17,6 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v3/testing"
 	ibcmock "github.com/cosmos/ibc-go/v3/testing/mock"
 
-	claimstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
 	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/keeper"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
@@ -41,7 +40,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 	// Setup Cosmos <=> canto IBC relayer
 	denom := "uatom"
 	sourceChannel := "channel-292"
-	cantoChannel := claimstypes.DefaultAuthorizedChannels[1]
+	cantoChannel := "channel-3"
 	path := fmt.Sprintf("%s/%s", transfertypes.PortID, cantoChannel)
 
 	timeoutHeight := clienttypes.NewHeight(0, 100)
@@ -89,7 +88,9 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			"continue - destination channel is EVM",
 			func() {
-				EVMChannels := suite.app.ClaimsKeeper.GetParams(suite.ctx).EVMChannels
+				// EVMChannels := suite.app.ClaimsKeeper.GetParams(suite.ctx).EVMChannels
+				//set EVM IBC channel to default one
+				EVMChannels := []string{"channel-2"}
 				transfer := transfertypes.NewFungibleTokenPacketData(denom, "100", ethsecpAddrcanto, ethsecpAddrCosmos)
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, EVMChannels[0], timeoutHeight, 0)
@@ -261,7 +262,9 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				// Setup Osmosis <=> canto IBC relayer
 				denom = "uosmo"
 				sourceChannel = "channel-204"
-				cantoChannel = claimstypes.DefaultAuthorizedChannels[0]
+				// cantoChannel = claimstypes.DefaultAuthorizedChannels[0]
+				cantoChannel = "channel-0"
+
 				path = fmt.Sprintf("%s/%s", transfertypes.PortID, cantoChannel)
 
 				transfer := transfertypes.NewFungibleTokenPacketData(denom, "100", secpAddrCosmos, secpAddrcanto)
@@ -316,7 +319,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 
 			sp, found := suite.app.ParamsKeeper.GetSubspace(types.ModuleName)
 			suite.Require().True(found)
-			suite.app.RecoveryKeeper = keeper.NewKeeper(sp, suite.app.AccountKeeper, suite.app.BankKeeper, suite.app.IBCKeeper.ChannelKeeper, mockTransferKeeper, suite.app.ClaimsKeeper)
+			suite.app.RecoveryKeeper = keeper.NewKeeper(sp, suite.app.AccountKeeper, suite.app.BankKeeper, suite.app.IBCKeeper.ChannelKeeper, mockTransferKeeper)
 
 			// Fund receiver account with canto, ERC20 coins and IBC vouchers
 			testutil.FundAccount(suite.app.BankKeeper, suite.ctx, secpAddr, coins)
@@ -507,7 +510,9 @@ func (suite *KeeperTestSuite) TestOnRecvPacketFailTransfer() {
 	// Setup Cosmos <=> canto IBC relayer
 	denom := "uatom"
 	sourceChannel := "channel-292"
-	cantoChannel := claimstypes.DefaultAuthorizedChannels[1]
+	// cantoChannel := claimstypes.DefaultAuthorizedChannels[1]
+
+	cantoChannel := "channel-3"
 	path := fmt.Sprintf("%s/%s", transfertypes.PortID, cantoChannel)
 
 	var mockTransferKeeper *MockTransferKeeper
@@ -571,7 +576,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacketFailTransfer() {
 
 			sp, found := suite.app.ParamsKeeper.GetSubspace(types.ModuleName)
 			suite.Require().True(found)
-			suite.app.RecoveryKeeper = keeper.NewKeeper(sp, suite.app.AccountKeeper, suite.app.BankKeeper, suite.app.IBCKeeper.ChannelKeeper, mockTransferKeeper, suite.app.ClaimsKeeper)
+			suite.app.RecoveryKeeper = keeper.NewKeeper(sp, suite.app.AccountKeeper, suite.app.BankKeeper, suite.app.IBCKeeper.ChannelKeeper, mockTransferKeeper)
 
 			// Fund receiver account with canto
 			coins := sdk.NewCoins(

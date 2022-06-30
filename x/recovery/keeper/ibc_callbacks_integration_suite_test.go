@@ -17,7 +17,7 @@ import (
 
 	ibctesting "github.com/Canto-Network/Canto-Testnet-v2/v0/ibc/testing"
 
-	claimtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/claims/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
 	inflationtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
@@ -61,7 +61,7 @@ func (suite *IBCTestingSuite) SetupTest() {
 	// Mint coins locked on the canto account generated with secp.
 	coincanto := sdk.NewCoin("acanto", sdk.NewInt(10000))
 	coins := sdk.NewCoins(coincanto)
-	err := suite.cantoChain.App.(*app.canto).BankKeeper.MintCoins(suite.cantoChain.GetContext(), inflationtypes.ModuleName, coins)
+	err := suite.cantoChain.App.(*app.Canto).BankKeeper.MintCoins(suite.cantoChain.GetContext(), inflationtypes.ModuleName, coins)
 	suite.Require().NoError(err)
 	err = suite.cantoChain.App.(*app.Canto).BankKeeper.SendCoinsFromModuleToAccount(suite.cantoChain.GetContext(), inflationtypes.ModuleName, suite.IBCOsmosisChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
@@ -82,16 +82,10 @@ func (suite *IBCTestingSuite) SetupTest() {
 	err = suite.IBCCosmosChain.GetSimApp().BankKeeper.SendCoinsFromModuleToAccount(suite.IBCCosmosChain.GetContext(), minttypes.ModuleName, suite.IBCCosmosChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-	// claimparams := claimtypes.DefaultParams()
-	claimparams := "acanto"
-
-	claimparams.AirdropStartTime = suite.cantoChain.GetContext().BlockTime()
-	claimparams.EnableClaims = true
-	suite.cantoChain.App.(*app.canto).ClaimsKeeper.SetParams(suite.cantoChain.GetContext(), claimparams)
 
 	params := types.DefaultParams()
 	params.EnableRecovery = true
-	suite.cantoChain.App.(*app.canto).RecoveryKeeper.SetParams(suite.cantoChain.GetContext(), params)
+	suite.cantoChain.App.(*app.Canto).RecoveryKeeper.SetParams(suite.cantoChain.GetContext(), params)
 
 	suite.pathOsmosiscanto = ibctesting.NewTransferPath(suite.IBCOsmosisChain, suite.cantoChain) // clientID, connectionID, channelID empty
 	suite.pathCosmoscanto = ibctesting.NewTransferPath(suite.IBCCosmosChain, suite.cantoChain)
