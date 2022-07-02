@@ -49,8 +49,8 @@ cat $HOME/.cantod/config/genesis.json | jq -r --arg current_date "$current_date"
 cat $HOME/.cantod/config/genesis.json | jq -r --arg current_date "$current_date" '.app_state["claims"]["params"]["duration_until_decay"]="100000s"' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
 
 # Claim module account:
-# 0xA61808Fe40fEb8B3433778BBC2ecECCAA47c8c47 || canto15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz
-cat $HOME/.cantod/config/genesis.json | jq -r --arg amount_to_claim "$amount_to_claim" '.app_state["bank"]["balances"] += [{"address":"canto15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"acanto", "amount":$amount_to_claim}]}]' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
+# 0xA61808Fe40fEb8B3433778BBC2ecECCAA47c8c47 || canto15cvq3ljql6utxseh0zau9m8ve2j8erz84vyscz
+cat $HOME/.cantod/config/genesis.json | jq -r --arg amount_to_claim "$amount_to_claim" '.app_state["bank"]["balances"] += [{"address":"canto15cvq3ljql6utxseh0zau9m8ve2j8erz84vyscz","coins":[{"denom":"acanto", "amount":$amount_to_claim}]}]' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
 
 # disable produce empty block
 if [[ "$OSTYPE" == "darwin"* ]]; then
