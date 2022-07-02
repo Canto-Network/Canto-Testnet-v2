@@ -135,6 +135,9 @@ import (
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting"
 	vestingkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/keeper"
 	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
+
+	unigovclient "github.com/Canto-Network/Canto-Testnet-v2/v0/unigov/client"
+	
 )
 
 func init() {
