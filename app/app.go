@@ -136,8 +136,10 @@ import (
 	vestingkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/keeper"
 	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
 
-	unigovclient "github.com/Canto-Network/Canto-Testnet-v2/v0/unigov/client"
-	
+	//unigov imports
+	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov"
+	unigovkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/keeper"
+	unigovtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
 )
 
 func init() {
@@ -146,7 +148,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".Cantod")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".cantod")
 
 	// manually update the power reduction by replacing micro (u) -> atto (a) Canto
 	sdk.DefaultPowerReduction = ethermint.PowerReduction
@@ -193,6 +195,7 @@ var (
 		feemarket.AppModuleBasic{},
 		inflation.AppModuleBasic{},
 		erc20.AppModuleBasic{},
+		unigov.AppModuleBasic{},
 		incentives.AppModuleBasic{},
 		epochs.AppModuleBasic{},
 		recovery.AppModuleBasic{},
@@ -277,6 +280,7 @@ type Canto struct {
 	VestingKeeper    vestingkeeper.Keeper
 	RecoveryKeeper   *recoverykeeper.Keeper
 	FeesKeeper       feeskeeper.Keeper
+	UnigovKeeper     unigovkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -417,7 +421,8 @@ func NewCanto(
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.UpgradeKeeper)).
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).
 		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper)).
-		AddRoute(incentivestypes.RouterKey, incentives.NewIncentivesProposalHandler(&app.IncentivesKeeper))
+		AddRoute(incentivestypes.RouterKey, incentives.NewIncentivesProposalHandler(&app.IncentivesKeeper)).
+		AddRoute(unigovtypes.RouterKey, unigov.NewUnigovProposalHandler(&app.UnigovKeeper))
 
 	govKeeper := govkeeper.NewKeeper(
 		appCodec, keys[govtypes.StoreKey], app.GetSubspace(govtypes.ModuleName),
@@ -429,6 +434,11 @@ func NewCanto(
 		keys[inflationtypes.StoreKey], appCodec, app.GetSubspace(inflationtypes.ModuleName),
 		app.AccountKeeper, app.BankKeeper, app.DistrKeeper, &stakingKeeper,
 		authtypes.FeeCollectorName,
+	)
+
+	app.UnigovKeeper = unigovkeeper.NewKeeper(
+		keys[unigovtypes.StoreKey], appCodec, app.GetSubspace(unigovtypes.ModuleName),
+		app.AccountKeeper, app.Erc20Keeper, govKeeper,
 	)
 
 	// register the staking hooks
@@ -603,6 +613,7 @@ func NewCanto(
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
 		fees.NewAppModule(app.FeesKeeper, app.AccountKeeper),
+		unigov.NewAppModule(app.UnigovKeeper, app.AccountKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -639,6 +650,7 @@ func NewCanto(
 		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		feestypes.ModuleName,
+		unigovtypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -670,6 +682,7 @@ func NewCanto(
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
 		incentivestypes.ModuleName,
+		unigovtypes.ModuleName,
 		// recoverytypes.ModuleName,
 		feestypes.ModuleName,
 	)
@@ -711,6 +724,7 @@ func NewCanto(
 		epochstypes.ModuleName,
 		recoverytypes.ModuleName,
 		feestypes.ModuleName,
+		unigovtypes.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
 	)
@@ -1030,6 +1044,7 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
 	paramsKeeper.Subspace(feestypes.ModuleName)
+	paramsKeeper.Subspace(unigovtypes.ModuleName)
 	return paramsKeeper
 }
 
