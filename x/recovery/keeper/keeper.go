@@ -50,6 +50,10 @@ func NewKeeper(
 	}
 }
 
+func (k *Keeper) SetTransferKeeper(tk types.TransferKeeper) {
+	k.transferKeeper = tk
+}
+
 // SetICS4Wrapper sets the ICS4 wrapper to the keeper.
 // It panics if already set
 func (k *Keeper) SetICS4Wrapper(ics4Wrapper porttypes.ICS4Wrapper) {

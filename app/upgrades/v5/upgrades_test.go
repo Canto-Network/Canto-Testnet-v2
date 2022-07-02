@@ -42,7 +42,6 @@ func (suite *UpgradeTestSuite) SetupTest(chainID string) {
 	priv, err := ethsecp256k1.GenerateKey()
 	suite.Require().NoError(err)
 	suite.consAddress = sdk.ConsAddress(priv.PubKey().Address())
-
 	// NOTE: this is the new binary, not the old one.
 	suite.app = app.Setup(checkTx, feemarkettypes.DefaultGenesisState())
 	suite.ctx = suite.app.BaseApp.NewContext(checkTx, tmproto.Header{
@@ -79,8 +78,8 @@ func TestUpgradeTestSuite(t *testing.T) {
 	suite.Run(t, s)
 }
 
-
 func (suite *UpgradeTestSuite) TestUpdateConsensusParams() {
+	suite.SetupTest(cantotypes.TestnetChainID + "-1") // initialize state for this test
 	unbondingDuration := suite.app.GetStakingKeeper().UnbondingTime(suite.ctx)
 
 	testCases := []struct {

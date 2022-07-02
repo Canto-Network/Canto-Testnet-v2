@@ -99,20 +99,20 @@ func TestGetcantoAddressFromBech32(t *testing.T) {
 		},
 		{
 			"canto address",
-			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
-			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
+			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueud7tc0s",
+			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueud7tc0s",
 			false,
 		},
 		{
 			"cosmos address",
 			"cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
-			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
+			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueud7tc0s",
 			false,
 		},
 		{
 			"osmosis address",
 			"osmo1qql8ag4cluz6r4dz28p3w00dnc9w8ueuhnecd2",
-			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
+			"canto1qql8ag4cluz6r4dz28p3w00dnc9w8ueud7tc0s",
 			false,
 		},
 	}

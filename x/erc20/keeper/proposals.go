@@ -26,7 +26,7 @@ func (k Keeper) RegisterCoin(
 	}
 
 	// Prohibit denominations that contain the evm denom
-	if strings.Contains(coinMetadata.Base, "evm") {
+	if strings.Contains(coinMetadata.Base, "CANTO") {
 		return nil, sdkerrors.Wrapf(
 			types.ErrEVMDenom, "cannot register the EVM denomination %s", coinMetadata.Base,
 		)

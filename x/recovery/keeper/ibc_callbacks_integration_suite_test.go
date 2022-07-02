@@ -82,7 +82,6 @@ func (suite *IBCTestingSuite) SetupTest() {
 	err = suite.IBCCosmosChain.GetSimApp().BankKeeper.SendCoinsFromModuleToAccount(suite.IBCCosmosChain.GetContext(), minttypes.ModuleName, suite.IBCCosmosChain.SenderAccount.GetAddress(), coins)
 	suite.Require().NoError(err)
 
-
 	params := types.DefaultParams()
 	params.EnableRecovery = true
 	suite.cantoChain.App.(*app.Canto).RecoveryKeeper.SetParams(suite.cantoChain.GetContext(), params)
