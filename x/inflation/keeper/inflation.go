@@ -3,7 +3,6 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	canto "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 )
 
@@ -101,15 +100,8 @@ func (k Keeper) GetProportions(
 func (k Keeper) BondedRatio(ctx sdk.Context) sdk.Dec {
 	stakeSupply := k.stakingKeeper.StakingTokenSupply(ctx)
 
-	isMainnet := canto.IsMainnet(ctx.ChainID())
-
-	if !stakeSupply.IsPositive() || (isMainnet && stakeSupply.LTE(teamAlloc)) {
+	if !stakeSupply.IsPositive() {
 		return sdk.ZeroDec()
-	}
-
-	// don't count team allocation in bonded ratio's stake supple
-	if isMainnet {
-		stakeSupply = stakeSupply.Sub(teamAlloc)
 	}
 
 	return k.stakingKeeper.TotalBondedTokens(ctx).ToDec().QuoInt(stakeSupply)
@@ -121,12 +113,6 @@ func (k Keeper) GetCirculatingSupply(ctx sdk.Context) sdk.Dec {
 	mintDenom := k.GetParams(ctx).MintDenom
 
 	circulatingSupply := k.bankKeeper.GetSupply(ctx, mintDenom).Amount.ToDec()
-	teamAllocation := teamAlloc.ToDec()
-
-	// Consider team allocation only on mainnet chain id
-	if canto.IsMainnet(ctx.ChainID()) {
-		circulatingSupply = circulatingSupply.Sub(teamAllocation)
-	}
 
 	return circulatingSupply
 }
