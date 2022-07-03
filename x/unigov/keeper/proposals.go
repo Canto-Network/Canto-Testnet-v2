@@ -25,12 +25,11 @@ func (k *Keeper) AppendLendingMarketProposal(ctx sdk.Context, lm *types.LendingM
 		return nil, sdkerrors.Wrap(err, "Error obtaining Proposal ID")
 	}
 	nonce, err := k.accKeeper.GetSequence(ctx, types.ModuleAddress.Bytes())
+	if err != nil {
+		return nil, sdkerrors.Wrap(err, "error obtaining account nonce")
+	}
+	//if this is the first unigov proposal, deploy the map contract as well
 	if nonce == 0 {
-
-		if err != nil {
-			return nil, sdkerrors.Wrap(err, "error obtaining account nonce")
-		}
-
 		*k.mapContractAddr, err = k.DeployMapContract(ctx, lm)
 		if err != nil {
 			return nil, err

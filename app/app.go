@@ -140,6 +140,7 @@ import (
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov"
 	unigovkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/keeper"
 	unigovtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
+	unigovclient "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/client"
 )
 
 func init() {
@@ -179,7 +180,8 @@ var (
 			ibcclientclient.UpdateClientProposalHandler, ibcclientclient.UpgradeProposalHandler,
 			// Canto proposal types
 			erc20client.RegisterCoinProposalHandler, erc20client.RegisterERC20ProposalHandler, erc20client.ToggleTokenConversionProposalHandler,
-			incentivesclient.RegisterIncentiveProposalHandler, incentivesclient.CancelIncentiveProposalHandler,
+			incentivesclient.RegisterIncentiveProposalHandler, incentivesclient.CancelIncentiveProposalHandler, unigovclient.LendingMarketProposalHandler, 
+			unigovclient.TreasuryProposalHandler,
 		),
 		params.AppModuleBasic{},
 		crisis.AppModuleBasic{},
@@ -214,6 +216,7 @@ var (
 		inflationtypes.ModuleName:      {authtypes.Minter},
 		erc20types.ModuleName:          {authtypes.Minter, authtypes.Burner},
 		incentivestypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
+		unigovtypes.ModuleName:         {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
@@ -422,7 +425,7 @@ func NewCanto(
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).
 		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper)).
 		AddRoute(incentivestypes.RouterKey, incentives.NewIncentivesProposalHandler(&app.IncentivesKeeper)).
-		AddRoute(unigovtypes.RouterKey, unigov.NewUnigovProposalHandler(&app.UnigovKeeper))
+		AddRoute(unigovtypes.RouterKey, unigov.NewUniGovProposalHandler(&app.UnigovKeeper))
 
 	govKeeper := govkeeper.NewKeeper(
 		appCodec, keys[govtypes.StoreKey], app.GetSubspace(govtypes.ModuleName),
