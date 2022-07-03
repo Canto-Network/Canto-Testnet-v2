@@ -6,7 +6,6 @@ import (
 	ethermint "github.com/Canto-Network/ethermint-v2/types"
 
 	canto "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
-	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 )
 
@@ -71,17 +70,19 @@ func (k Keeper) AllocateExponentialInflation(
 		return nil, nil, nil, err
 	}
 
+	//remove minting coins to the incentives module
+
 	// Allocate usage incentives to incentives module account
-	incentives = sdk.NewCoins(k.GetProportions(ctx, mintedCoin, proportions.UsageIncentives))
-	err = k.bankKeeper.SendCoinsFromModuleToModule(
-		ctx,
-		types.ModuleName,
-		incentivestypes.ModuleName,
-		incentives,
-	)
-	if err != nil {
-		return nil, nil, nil, err
-	}
+	// incentives = sdk.NewCoins(k.GetProportions(ctx, mintedCoin, proportions.UsageIncentives))
+	// err = k.bankKeeper.SendCoinsFromModuleToModule(
+	// 	ctx,
+	// 	types.ModuleName,
+	// 	incentivestypes.ModuleName,
+	// 	incentives,
+	// )
+	// if err != nil {
+	// 	return nil, nil, nil, err
+	// }
 
 	// Allocate community pool amount (remaining module balance) to community
 	// pool address
