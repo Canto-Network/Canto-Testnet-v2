@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"fmt"
 
-	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
 	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -12,28 +11,25 @@ import (
 
 func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {
 	testCases := []struct {
-		name                  string
-		mintCoin              sdk.Coin
-		malleate              func()
-		expStakingRewardAmt   sdk.Coin
-		expUsageIncentivesAmt sdk.Coin
-		expCommunityPoolAmt   sdk.DecCoins
-		expPass               bool
+		name                string
+		mintCoin            sdk.Coin
+		malleate            func()
+		expStakingRewardAmt sdk.Coin
+		expCommunityPoolAmt sdk.DecCoins
+		expPass             bool
 	}{
 		{
 			"pass",
 			sdk.NewCoin(denomMint, sdk.NewInt(1_000_000)),
 			func() {},
-			sdk.NewCoin(denomMint, sdk.NewInt(533_333)),
-			sdk.NewCoin(denomMint, sdk.NewInt(333_333)),
-			sdk.NewDecCoins(sdk.NewDecCoin(denomMint, sdk.NewInt(133_334))),
+			sdk.NewCoin(denomMint, sdk.NewInt(800_000)),
+			sdk.NewDecCoins(sdk.NewDecCoin(denomMint, sdk.NewInt(200_000))),
 			true,
 		},
 		{
 			"pass - no coins minted ",
 			sdk.NewCoin(denomMint, sdk.ZeroInt()),
 			func() {},
-			sdk.NewCoin(denomMint, sdk.ZeroInt()),
 			sdk.NewCoin(denomMint, sdk.ZeroInt()),
 			sdk.DecCoins(nil),
 			true,
@@ -45,7 +41,7 @@ func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {
 
 			tc.malleate()
 
-			_, _, _, err := suite.app.InflationKeeper.MintAndAllocateInflation(suite.ctx, tc.mintCoin)
+			_, _, err := suite.app.InflationKeeper.MintAndAllocateInflation(suite.ctx, tc.mintCoin)
 
 			// Get balances
 			balanceModule := suite.app.BankKeeper.GetBalance(
@@ -61,20 +57,12 @@ func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {
 				denomMint,
 			)
 
-			incentives := suite.app.AccountKeeper.GetModuleAddress(incentivestypes.ModuleName)
-			balanceUsageIncentives := suite.app.BankKeeper.GetBalance(
-				suite.ctx,
-				incentives,
-				denomMint,
-			)
-
 			balanceCommunityPool := suite.app.DistrKeeper.GetFeePoolCommunityCoins(suite.ctx)
 
 			if tc.expPass {
 				suite.Require().NoError(err, tc.name)
 				suite.Require().True(balanceModule.IsZero())
 				suite.Require().Equal(tc.expStakingRewardAmt, balanceStakingRewards)
-				suite.Require().Equal(tc.expUsageIncentivesAmt, balanceUsageIncentives)
 				suite.Require().Equal(tc.expCommunityPoolAmt, balanceCommunityPool)
 			} else {
 				suite.Require().Error(err)

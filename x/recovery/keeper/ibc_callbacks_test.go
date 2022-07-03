@@ -17,10 +17,10 @@ import (
 	ibcgotesting "github.com/cosmos/ibc-go/v3/testing"
 	ibcmock "github.com/cosmos/ibc-go/v3/testing/mock"
 
-	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/keeper"
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/recovery/types"
 	vestingtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 )
 
 func (suite *KeeperTestSuite) TestOnRecvPacket() {
@@ -188,9 +188,9 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			"continue - receiver is a module account",
 			func() {
-				incentivesAcc := suite.app.AccountKeeper.GetModuleAccount(suite.ctx, incentivestypes.ModuleName)
-				suite.Require().NotNil(incentivesAcc)
-				addr := incentivesAcc.GetAddress().String()
+				distrAcc := suite.app.AccountKeeper.GetModuleAccount(suite.ctx, distrtypes.ModuleName)
+				suite.Require().NotNil(distrAcc)
+				addr := distrAcc.GetAddress().String()
 				transfer := transfertypes.NewFungibleTokenPacketData(denom, "100", addr, addr)
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, cantoChannel, timeoutHeight, 0)

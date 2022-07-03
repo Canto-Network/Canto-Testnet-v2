@@ -122,10 +122,7 @@ import (
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees"
 	feeskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/keeper"
 	feestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives"
-	incentivesclient "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/client"
-	incentiveskeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/keeper"
-	incentivestypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/incentives/types"
+
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation"
 	inflationkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/keeper"
 	inflationtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
@@ -138,9 +135,9 @@ import (
 
 	//unigov imports
 	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov"
+	unigovclient "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/client"
 	unigovkeeper "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/keeper"
 	unigovtypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
-	unigovclient "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/client"
 )
 
 func init() {
@@ -180,7 +177,7 @@ var (
 			ibcclientclient.UpdateClientProposalHandler, ibcclientclient.UpgradeProposalHandler,
 			// Canto proposal types
 			erc20client.RegisterCoinProposalHandler, erc20client.RegisterERC20ProposalHandler, erc20client.ToggleTokenConversionProposalHandler,
-			incentivesclient.RegisterIncentiveProposalHandler, incentivesclient.CancelIncentiveProposalHandler, unigovclient.LendingMarketProposalHandler, 
+			unigovclient.LendingMarketProposalHandler,
 			unigovclient.TreasuryProposalHandler,
 		),
 		params.AppModuleBasic{},
@@ -198,7 +195,6 @@ var (
 		inflation.AppModuleBasic{},
 		erc20.AppModuleBasic{},
 		unigov.AppModuleBasic{},
-		incentives.AppModuleBasic{},
 		epochs.AppModuleBasic{},
 		recovery.AppModuleBasic{},
 		fees.AppModuleBasic{},
@@ -215,14 +211,12 @@ var (
 		evmtypes.ModuleName:            {authtypes.Minter, authtypes.Burner}, // used for secure addition and subtraction of balance using module account
 		inflationtypes.ModuleName:      {authtypes.Minter},
 		erc20types.ModuleName:          {authtypes.Minter, authtypes.Burner},
-		incentivestypes.ModuleName:     {authtypes.Minter, authtypes.Burner},
 		unigovtypes.ModuleName:         {authtypes.Minter, authtypes.Burner},
 	}
 
 	// module accounts that are allowed to receive tokens
 	allowedReceivingModAcc = map[string]bool{
-		distrtypes.ModuleName:      true,
-		incentivestypes.ModuleName: true,
+		distrtypes.ModuleName: true,
 	}
 )
 
@@ -276,14 +270,13 @@ type Canto struct {
 	FeeMarketKeeper feemarketkeeper.Keeper
 
 	// Canto keepers
-	InflationKeeper  inflationkeeper.Keeper
-	Erc20Keeper      erc20keeper.Keeper
-	IncentivesKeeper incentiveskeeper.Keeper
-	EpochsKeeper     epochskeeper.Keeper
-	VestingKeeper    vestingkeeper.Keeper
-	RecoveryKeeper   *recoverykeeper.Keeper
-	FeesKeeper       feeskeeper.Keeper
-	UnigovKeeper     unigovkeeper.Keeper
+	InflationKeeper inflationkeeper.Keeper
+	Erc20Keeper     erc20keeper.Keeper
+	EpochsKeeper    epochskeeper.Keeper
+	VestingKeeper   vestingkeeper.Keeper
+	RecoveryKeeper  *recoverykeeper.Keeper
+	FeesKeeper      feeskeeper.Keeper
+	UnigovKeeper    unigovkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -338,7 +331,7 @@ func NewCanto(
 		// ethermint keys
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
 		// Canto keys
-		inflationtypes.StoreKey, erc20types.StoreKey, incentivestypes.StoreKey,
+		inflationtypes.StoreKey, erc20types.StoreKey,
 		epochstypes.StoreKey, vestingtypes.StoreKey, recoverytypes.StoreKey, //recoverytypes.StoreKe
 		feestypes.StoreKey,
 	)
@@ -424,7 +417,6 @@ func NewCanto(
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.UpgradeKeeper)).
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).
 		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper)).
-		AddRoute(incentivestypes.RouterKey, incentives.NewIncentivesProposalHandler(&app.IncentivesKeeper)).
 		AddRoute(unigovtypes.RouterKey, unigov.NewUniGovProposalHandler(&app.UnigovKeeper))
 
 	govKeeper := govkeeper.NewKeeper(
@@ -464,11 +456,6 @@ func NewCanto(
 		app.AccountKeeper, app.BankKeeper, app.EvmKeeper,
 	)
 
-	app.IncentivesKeeper = incentiveskeeper.NewKeeper(
-		keys[incentivestypes.StoreKey], appCodec, app.GetSubspace(incentivestypes.ModuleName),
-		app.AccountKeeper, app.BankKeeper, app.InflationKeeper, app.StakingKeeper, app.EvmKeeper,
-	)
-
 	app.FeesKeeper = feeskeeper.NewKeeper(
 		keys[feestypes.StoreKey], appCodec, app.GetSubspace(feestypes.ModuleName),
 		app.BankKeeper, app.EvmKeeper,
@@ -479,7 +466,6 @@ func NewCanto(
 	app.EpochsKeeper = *epochsKeeper.SetHooks(
 		epochskeeper.NewMultiEpochHooks(
 			// insert epoch hooks receivers here
-			app.IncentivesKeeper.Hooks(),
 			app.InflationKeeper.Hooks(),
 		),
 	)
@@ -493,7 +479,6 @@ func NewCanto(
 	app.EvmKeeper = app.EvmKeeper.SetHooks(
 		evmkeeper.NewMultiEvmHooks(
 			app.Erc20Keeper.Hooks(),
-			app.IncentivesKeeper.Hooks(),
 			app.FeesKeeper.Hooks(),
 		),
 	)
@@ -611,7 +596,6 @@ func NewCanto(
 		// Canto app modules
 		inflation.NewAppModule(app.InflationKeeper, app.AccountKeeper, app.StakingKeeper),
 		erc20.NewAppModule(app.Erc20Keeper, app.AccountKeeper),
-		incentives.NewAppModule(app.IncentivesKeeper, app.AccountKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		recovery.NewAppModule(*app.RecoveryKeeper),
@@ -650,7 +634,6 @@ func NewCanto(
 		vestingtypes.ModuleName,
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
-		incentivestypes.ModuleName,
 		recoverytypes.ModuleName,
 		feestypes.ModuleName,
 		unigovtypes.ModuleName,
@@ -684,7 +667,6 @@ func NewCanto(
 		vestingtypes.ModuleName,
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
-		incentivestypes.ModuleName,
 		unigovtypes.ModuleName,
 		// recoverytypes.ModuleName,
 		feestypes.ModuleName,
@@ -723,7 +705,6 @@ func NewCanto(
 		vestingtypes.ModuleName,
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
-		incentivestypes.ModuleName,
 		epochstypes.ModuleName,
 		recoverytypes.ModuleName,
 		feestypes.ModuleName,
@@ -1044,7 +1025,6 @@ func initParamsKeeper(
 	// Canto subspaces
 	paramsKeeper.Subspace(inflationtypes.ModuleName)
 	paramsKeeper.Subspace(erc20types.ModuleName)
-	paramsKeeper.Subspace(incentivestypes.ModuleName)
 	paramsKeeper.Subspace(recoverytypes.ModuleName)
 	paramsKeeper.Subspace(feestypes.ModuleName)
 	paramsKeeper.Subspace(unigovtypes.ModuleName)
