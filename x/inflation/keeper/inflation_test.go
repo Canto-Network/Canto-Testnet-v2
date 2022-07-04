@@ -98,13 +98,13 @@ func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndInflationRate() {
 			"high supply",
 			800_000_000,
 			func() {},
-			sdk.MustNewDecFromStr("51.562500000000000000"),
+			sdk.MustNewDecFromStr("38.671875000000000000"),
 		},
 		{
 			"low supply",
 			400_000_000,
 			func() {},
-			sdk.MustNewDecFromStr("154.687500000000000000"),
+			sdk.MustNewDecFromStr(("77.343750000000000000")),
 		},
 	}
 	for _, tc := range testCases {
@@ -121,10 +121,9 @@ func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndInflationRate() {
 			err := suite.app.InflationKeeper.MintCoins(suite.ctx, coin)
 			suite.Require().NoError(err)
 
-			teamAlloc := sdk.NewDecCoin(types.DefaultInflationDenom, sdk.TokensFromConsensusPower(int64(200_000_000), ethermint.PowerReduction))
 			circulatingSupply := s.app.InflationKeeper.GetCirculatingSupply(suite.ctx)
 
-			suite.Require().Equal(decCoin.Sub(teamAlloc).Amount, circulatingSupply)
+			suite.Require().Equal(decCoin.Amount, circulatingSupply)
 
 			inflationRate := s.app.InflationKeeper.GetInflationRate(suite.ctx)
 			suite.Require().Equal(tc.expInflationRate, inflationRate)
