@@ -431,11 +431,6 @@ func NewCanto(
 		authtypes.FeeCollectorName,
 	)
 
-	app.UnigovKeeper = unigovkeeper.NewKeeper(
-		keys[unigovtypes.StoreKey], appCodec, app.GetSubspace(unigovtypes.ModuleName),
-		app.AccountKeeper, app.Erc20Keeper, govKeeper,
-	)
-
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	// NOTE: Distr, Slashing and Claim must be created before calling the Hooks method to avoid returning a Keeper without its table generated
@@ -454,6 +449,11 @@ func NewCanto(
 	app.Erc20Keeper = erc20keeper.NewKeeper(
 		keys[erc20types.StoreKey], appCodec, app.GetSubspace(erc20types.ModuleName),
 		app.AccountKeeper, app.BankKeeper, app.EvmKeeper,
+	)
+
+	app.UnigovKeeper = unigovkeeper.NewKeeper(
+		keys[unigovtypes.StoreKey], appCodec, app.GetSubspace(unigovtypes.ModuleName),
+		app.AccountKeeper, app.Erc20Keeper, govKeeper,
 	)
 
 	app.FeesKeeper = feeskeeper.NewKeeper(
