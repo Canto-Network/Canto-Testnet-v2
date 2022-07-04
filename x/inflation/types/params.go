@@ -51,8 +51,9 @@ func DefaultParams() Params {
 			MaxVariance:   sdk.ZeroDec(),             // 0%
 		},
 		InflationDistribution: InflationDistribution{
-			StakingRewards: sdk.NewDecWithPrec(800000000, 9), // 80% / (1 - 25%)
-			CommunityPool:  sdk.NewDecWithPrec(200000000, 9), // 20% / (1 - 25%)
+			StakingRewards:  sdk.NewDecWithPrec(800000000, 9), // 80% / (1 - 25%)
+			UsageIncentives: sdk.NewDecWithPrec(000000000, 9),
+			CommunityPool:   sdk.NewDecWithPrec(200000000, 9), // 20% / (1 - 25%)
 		},
 		EnableInflation: true,
 	}
