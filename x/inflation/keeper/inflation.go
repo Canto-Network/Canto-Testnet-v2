@@ -63,7 +63,6 @@ func (k Keeper) AllocateExponentialInflation(
 	if err != nil {
 		return nil, nil, err
 	}
-
 	//remove minting coins to the incentives module
 
 	// Allocate community pool amount (remaining module balance) to community
