@@ -45,13 +45,3 @@ func CalculateEpochMintProvision(
 	epochProvision = epochProvision.Mul(ethermint.PowerReduction.ToDec())
 	return epochProvision
 }
-
-
-func CalculateEpochMintProvisionNew(
-	params Params, 
-	
-) sdk.Dec {
-
-}
-
-

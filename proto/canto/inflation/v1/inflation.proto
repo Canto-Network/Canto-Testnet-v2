@@ -22,7 +22,7 @@ message InflationDistribution {
   
   // community_pool defines the proportion of the minted minted_denom that is to
   // be allocated to the community pool
-  string community_pool = 3 [
+  string community_pool = 2 [
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
     (gogoproto.nullable) = false
   ];
