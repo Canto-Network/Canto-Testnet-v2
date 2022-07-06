@@ -2,7 +2,7 @@ package cli
 
 import (
 	"encoding/json"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/unigov/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"io/ioutil"
 	"path/filepath"

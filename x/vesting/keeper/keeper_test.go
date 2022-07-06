@@ -35,10 +35,10 @@ import (
 	evm "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/contracts"
-	epochstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/epochs/types"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/vesting/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/app"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/contracts"
+	epochstypes "github.com/Canto-Network/Canto-Testnet-v2/v1/x/epochs/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/vesting/types"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/erc20/types"
 )
 
 func (suite *KeeperTestSuite) TestGetTokenPairs() {

@@ -17,9 +17,9 @@ import (
 	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
 	feemarkettypes "github.com/Canto-Network/ethermint-v2/x/feemarket/types"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	v6 "github.com/Canto-Network/Canto-Testnet-v2/v0/app/upgrades/v6"
-	cantotypes "github.com/Canto-Network/Canto-Testnet-v2/v0/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/app"
+	v6 "github.com/Canto-Network/Canto-Testnet-v2/v1/app/upgrades/v6"
+	cantotypes "github.com/Canto-Network/Canto-Testnet-v2/v1/types"
 )
 
 type UpgradeTestSuite struct {

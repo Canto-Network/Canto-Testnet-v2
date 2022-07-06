@@ -1,6 +1,6 @@
 package keeper_test
 
-import "github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
+import "github.com/Canto-Network/Canto-Testnet-v2/v1/x/fees/types"
 
 func (suite *KeeperTestSuite) TestParams() {
 	params := suite.app.FeesKeeper.GetParams(suite.ctx)

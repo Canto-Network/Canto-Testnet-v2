@@ -3,8 +3,8 @@ package unigov
 import (
 	"fmt"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/keeper"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/unigov/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/unigov/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )

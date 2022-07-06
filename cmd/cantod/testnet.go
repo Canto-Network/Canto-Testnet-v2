@@ -43,9 +43,9 @@ import (
 	ethermint "github.com/Canto-Network/ethermint-v2/types"
 	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 
-	cmdcfg "github.com/Canto-Network/Canto-Testnet-v2/v0/cmd/config"
-	cantokr "github.com/Canto-Network/Canto-Testnet-v2/v0/crypto/keyring"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil/network"
+	cmdcfg "github.com/Canto-Network/Canto-Testnet-v2/v1/cmd/config"
+	cantokr "github.com/Canto-Network/Canto-Testnet-v2/v1/crypto/keyring"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/testutil/network"
 )
 
 var (
