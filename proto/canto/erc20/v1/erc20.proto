@@ -46,8 +46,7 @@ message RegisterCoinProposal {
 // ERC20 token
 message RegisterERC20Proposal {
   option (gogoproto.equal) = false;
-  // title of the proposal
-  string title = 1;
+  // title of the proposa  string title = 1;
   // proposal description
   string description = 2;
   // contract address of ERC20 token
