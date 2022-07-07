@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo "HELLO"
 
 set -eo pipefail
 
@@ -11,11 +10,8 @@ protoc_gen_gocosmos() {
     return 1
   fi
 
-  echo "1"
-
   go install github.com/regen-network/cosmos-proto/protoc-gen-gocosmos 2>/dev/null
 
-  echo "2"  
 }
 
 protoc_gen_doc() {
@@ -25,7 +21,6 @@ protoc_gen_doc() {
 protoc_gen_gocosmos
 protoc_gen_doc
 
-echo "3"
 
 
 proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
@@ -41,7 +36,6 @@ Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types:. \
 
 done
 
-echo "4"
 
 
 # command to generate docs using protoc-gen-doc
@@ -53,7 +47,6 @@ echo "4"
 # --doc_opt=./docs/protodoc-markdown.tmpl,proto-docs.md \
 # $(find "$(pwd)/proto" -maxdepth 5 -name '*.proto')
 
-echo "3"
 
 # move proto files to the right places
 cp -r github.com/Canto-Network/Canto-Testnet-v2/v1/x/* x/
