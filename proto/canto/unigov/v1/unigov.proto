@@ -36,6 +36,7 @@ message TreasuryProposal {
   string description = 2;
 
   TreasuryProposalMetadata  metadata = 3 [ (gogoproto.nullable) = false];
+}
 
 message TreasuryProposalMetadata {
   option (gogoproto.equal) = false;
