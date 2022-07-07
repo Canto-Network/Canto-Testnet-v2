@@ -18,10 +18,12 @@ protoc_gen_doc() {
   go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc 2>/dev/null
 }
 
+echo "1"
+
 protoc_gen_gocosmos
 protoc_gen_doc
 
-
+echo "2"
 
 proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 # TODO: migrate to `buf build`
@@ -36,7 +38,7 @@ Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types:. \
 
 done
 
-
+echo "3"
 
 # command to generate docs using protoc-gen-doc
 # TODO: migrate to `buf build`
