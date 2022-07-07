@@ -46,12 +46,12 @@ echo "4"
 
 # command to generate docs using protoc-gen-doc
 # TODO: migrate to `buf build`
-buf alpha protoc \
--I "proto" \
--I "third_party/proto" \
---doc_out=./docs/protocol \
---doc_opt=./docs/protodoc-markdown.tmpl,proto-docs.md \
-$(find "$(pwd)/proto" -maxdepth 5 -name '*.proto')
+# buf alpha protoc \
+# -I "proto" \
+# -I "third_party/proto" \
+# --doc_out=./docs/protocol \
+# --doc_opt=./docs/protodoc-markdown.tmpl,proto-docs.md \
+# $(find "$(pwd)/proto" -maxdepth 5 -name '*.proto')
 
 echo "3"
 
