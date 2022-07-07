@@ -19,6 +19,7 @@ const (
 	prefixEpochIdentifier
 	prefixEpochsPerPeriod
 	prefixSkippedEpochs
+	prefixCurInflation
 )
 
 // KVStore key prefixes

@@ -2,46 +2,37 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	ethermint "github.com/Canto-Network/ethermint-v2/types"
+	
+	ethermint "github.com/Canto-Network/Canto-Testnet-v2/ethermint-v2/types"
 )
 
-// CalculateEpochProvisions returns mint provision per epoch
 func CalculateEpochMintProvision(
 	params Params,
 	period uint64,
 	epochsPerPeriod int64,
 	bondedRatio sdk.Dec,
 ) sdk.Dec {
-	x := period                                              // period
-	a := params.ExponentialCalculation.A                     // initial value
-	r := params.ExponentialCalculation.R                     // reduction factor
-	c := params.ExponentialCalculation.C                     // long term inflation
-	bTarget := params.ExponentialCalculation.BondingTarget   // bonding target
-	maxVariance := params.ExponentialCalculation.MaxVariance // max percentage that inflation can be increased by
 
-	// exponentialDecay := a * (1 - r) ^ x + c
-	decay := sdk.OneDec().Sub(r)
-	exponentialDecay := a.Mul(decay.Power(x)).Add(c)
+	minInflation := params.ExponentialCalculation.MinInflation //minInflation
+	maxInflation := params.ExponentialCalculation.MaxInflation
+	bondedTarget := params.ExponentialCalculation.BondingTarget
+	adjustSpeed := params.ExponentialCalculation.AdjustSpeed
 
-	// bondingIncentive doesn't increase beyond bonding target (0 < b < bonding_target)
-	if bondedRatio.GTE(bTarget) {
-		bondedRatio = bTarget
+	//how to get the current inflation?
+	bondDiff := bondedTarget.Sub(bondedRatio)
+	periodProvision := bondDiff.Mul(adjustSpeed).Mul()
+
+	//return calculated inflation in terms of periods per epoch
+	if minInflation.GT(periodProvision) {
+		return minInflation.Quo(sdk.NewDec(epochsPerPeriod))
 	}
 
-	// bondingIncentive = 1 + max_variance - bondingRatio * (max_variance / bonding_target)
-	sub := bondedRatio.Mul(maxVariance.Quo(bTarget))
-	bondingIncentive := sdk.OneDec().Add(maxVariance).Sub(sub)
+	if periodProvision.GT(maxInflation) {
+		return maxInflation.Quo(sdk.NewDec(epochsPerPeriod))
+	}
 
-	// periodProvision = exponentialDecay * bondingIncentive
-	periodProvision := exponentialDecay.Mul(bondingIncentive)
-
-	// epochProvision = periodProvision / epochsPerPeriod
+	// return this value as a mantissa
 	epochProvision := periodProvision.Quo(sdk.NewDec(epochsPerPeriod))
 
-	// Multiply epochMintProvision with power reduction (10^18 for canto) as the
-	// calculation is based on `canto` and the issued tokens need to be given in
-	// `acanto`
-	epochProvision = epochProvision.Mul(ethermint.PowerReduction.ToDec())
-	return epochProvision
+	return epochProvision.Mul(ethermint.PowerReduction.ToDec())
 }
