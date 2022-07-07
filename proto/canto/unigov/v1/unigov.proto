@@ -61,6 +61,3 @@ message LendingMarketMetadata {
 
   repeated string signatures = 5;
 }
-
-
-
