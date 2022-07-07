@@ -137,5 +137,3 @@ func (k Keeper) GetInflationRate(ctx sdk.Context) sdk.Dec {
 	// EpochMintProvision * 365 / circulatingSupply * 100
 	return epochMintProvision.Mul(epochsPerPeriod).Quo(circulatingSupply).Mul(sdk.NewDec(100))
 }
-
-

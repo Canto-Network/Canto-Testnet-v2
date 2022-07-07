@@ -22,7 +22,7 @@ message LendingMarketProposal {
   
   string description = 2;
 
-  LendingMarketMetadata metadata = 3 [ (gogoproto.nullable) = false];
+  LendingMarketMetadata metadata = 3;
 }
 
 //treasury proposal type,
@@ -35,7 +35,7 @@ message TreasuryProposal {
 
   string description = 2;
 
-  TreasuryProposalMetadata  metadata = 3 [ (gogoproto.nullable) = false];
+  TreasuryProposalMetadata  metadata = 3 ;
 }
 
 message TreasuryProposalMetadata {
