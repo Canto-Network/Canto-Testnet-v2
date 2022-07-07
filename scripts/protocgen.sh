@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+echo "HELLO"
+
 set -eo pipefail
+
 
 protoc_gen_gocosmos() {
   if ! grep "github.com/gogo/protobuf => github.com/regen-network/protobuf" go.mod &>/dev/null ; then
