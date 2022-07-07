@@ -43,4 +43,9 @@ message InflationDistribution {
       (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
       (gogoproto.nullable) = false   
     ];
+
+    string bondingTarget = 4 [
+      (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+      (gogoproto.nullable) = false   
+    ];
   } 
