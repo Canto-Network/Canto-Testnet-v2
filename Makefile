@@ -16,7 +16,7 @@ SIMAPP = ./app
 HTTPS_GIT := https://github.com/canto/canto.git
 DOCKER := $(shell which docker)
 DOCKER_BUF := $(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace bufbuild/buf
-NAMESPACE := tharsishq
+NAMESPACE := Canto
 PROJECT := canto
 DOCKER_IMAGE := $(NAMESPACE)/$(PROJECT)
 COMMIT_HASH := $(shell git rev-parse --short=7 HEAD)
