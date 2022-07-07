@@ -44,6 +44,7 @@ func InitGenesis(
 		period,
 		epochsPerPeriod,
 		bondedRatio,
+		k.GetInflationRate(ctx),
 	)
 	k.SetEpochMintProvision(ctx, epochMintProvision)
 }

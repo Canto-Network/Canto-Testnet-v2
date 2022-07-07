@@ -2,8 +2,8 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	
-	ethermint "github.com/Canto-Network/Canto-Testnet-v2/ethermint-v2/types"
+
+	ethermint "github.com/Canto-Network/ethermint-v2/types"
 )
 
 func CalculateEpochMintProvision(
@@ -11,6 +11,7 @@ func CalculateEpochMintProvision(
 	period uint64,
 	epochsPerPeriod int64,
 	bondedRatio sdk.Dec,
+	curInflation sdk.Dec,
 ) sdk.Dec {
 
 	minInflation := params.ExponentialCalculation.MinInflation //minInflation
@@ -20,7 +21,7 @@ func CalculateEpochMintProvision(
 
 	//how to get the current inflation?
 	bondDiff := bondedTarget.Sub(bondedRatio)
-	periodProvision := bondDiff.Mul(adjustSpeed).Mul()
+	periodProvision := bondDiff.Mul(adjustSpeed).Mul(curInflation)
 
 	//return calculated inflation in terms of periods per epoch
 	if minInflation.GT(periodProvision) {
