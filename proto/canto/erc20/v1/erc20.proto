@@ -35,7 +35,7 @@ message TokenPair {
 message RegisterCoinProposal {
   option (gogoproto.equal) = false;
   // title of the proposal
-  string Title = 1;
+  string title = 1;
   // proposal description
   string description = 2;
   // metadata of the native Cosmos coin
@@ -47,6 +47,7 @@ message RegisterCoinProposal {
 message RegisterERC20Proposal {
   option (gogoproto.equal) = false;
   // title of the proposa  string title = 1;
+  string title = 1;
   // proposal description
   string description = 2;
   // contract address of ERC20 token
