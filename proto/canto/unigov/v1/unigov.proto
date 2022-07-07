@@ -14,8 +14,8 @@ message Params {
 //Define this object so that the unigov.pb.go file is generate, implements govtypes.Content
 message LendingMarketProposal {
   option (gogoproto.equal) = false;
-  // option (cosmos_proto.implements_interface) =
-  //   "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1.Content";
+  option (cosmos_proto.implements_interface) =
+    "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1.Content";
 
   //title
   string title = 1; //
@@ -28,8 +28,8 @@ message LendingMarketProposal {
 //treasury proposal type,
 message TreasuryProposal {
   option (gogoproto.equal) = false;
-  // option (cosmos_proto.implements_interface) =
-  //   "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1.Content";
+  option (cosmos_proto.implements_interface) =
+    "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1.Content";
 
   string title = 1;
 
