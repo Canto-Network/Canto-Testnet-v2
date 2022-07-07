@@ -10,12 +10,12 @@ protoc_gen_gocosmos() {
     return 1
   fi
 
-  go install github.com/regen-network/cosmos-proto/protoc-gen-gocosmos 2>/dev/null
+  go get -u  github.com/regen-network/cosmos-proto/protoc-gen-gocosmos 2>/dev/null
 
 }
 
 protoc_gen_doc() {
-  go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc 2>/dev/null
+  go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc 2>/dev/null
 }
 
 echo "1"
