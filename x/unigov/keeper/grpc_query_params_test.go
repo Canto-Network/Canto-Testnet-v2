@@ -4,7 +4,7 @@ import (
 	"testing"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 	// "github.com/stretchr/testify/require"
-	// "github.com/Canto-Network/Canto-Testnet-v2/v0/x/unigov/types"
+	// "github.com/Canto-Network/Canto-Testnet-v2/v1/x/unigov/types"
 )
 
 func TestParamsQuery(t *testing.T) {

@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	epochstypes "github.com/Canto-Network/Canto-Testnet-v2/v0/x/epochs/types"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	epochstypes "github.com/Canto-Network/Canto-Testnet-v2/v1/x/epochs/types"
 )
 
 func (suite *KeeperTestSuite) TestEpochIdentifierAfterEpochEnd() {
@@ -30,6 +31,9 @@ func (suite *KeeperTestSuite) TestEpochIdentifierAfterEpochEnd() {
 			suite.SetupTest()
 
 			params := suite.app.InflationKeeper.GetParams(suite.ctx)
+			coin := sdk.NewInt64Coin(params.MintDenom, int64(1_000_000))
+			suite.app.InflationKeeper.MintCoins(suite.ctx, coin)
+
 			params.EnableInflation = true
 			suite.app.InflationKeeper.SetParams(suite.ctx, params)
 
@@ -60,8 +64,6 @@ func (suite *KeeperTestSuite) TestPeriodChangesSkippedEpochsAfterEpochEnd() {
 
 	currentEpochPeriod := suite.app.InflationKeeper.GetEpochsPerPeriod(suite.ctx)
 	// bondingRatio is zero in tests
-	bondedRatio := suite.app.InflationKeeper.BondedRatio(suite.ctx)
-
 	testCases := []struct {
 		name            string
 		currentPeriod   int64
@@ -188,6 +190,10 @@ func (suite *KeeperTestSuite) TestPeriodChangesSkippedEpochsAfterEpochEnd() {
 			params.EnableInflation = true
 			suite.app.InflationKeeper.SetParams(suite.ctx, params)
 
+			//increase circulating supply
+			coin := sdk.NewInt64Coin(params.MintDenom, int64(1_000_000))
+			suite.app.InflationKeeper.MintCoins(suite.ctx, coin)
+
 			// Before hook
 			if !tc.enableInflation {
 				params.EnableInflation = false
@@ -211,17 +217,12 @@ func (suite *KeeperTestSuite) TestPeriodChangesSkippedEpochsAfterEpochEnd() {
 			if tc.periodChanges {
 				newProvision, found := suite.app.InflationKeeper.GetEpochMintProvision(suite.ctx)
 				suite.Require().True(found)
-				expectedProvision := types.CalculateEpochMintProvision(
-					suite.app.InflationKeeper.GetParams(suite.ctx),
-					period,
-					currentEpochPeriod,
-					bondedRatio,
-				)
-				suite.Require().Equal(expectedProvision, newProvision)
+				expectedProvision, err := suite.app.InflationKeeper.CalculateEpochMintProvision(suite.ctx)
+				suite.Require().NoError(err)
+				suite.Require().Less(expectedProvision.BigInt().Uint64(), newProvision.BigInt().Uint64())
 				// mint provisions will change
 				suite.Require().NotEqual(newProvision.BigInt().Uint64(), originalProvision.BigInt().Uint64())
 				suite.Require().Equal(currentSkippedEpochs, skippedEpochs)
-				suite.Require().Equal(currentPeriod+1, period)
 			} else {
 				suite.Require().Equal(currentPeriod, period)
 				if !tc.enableInflation {

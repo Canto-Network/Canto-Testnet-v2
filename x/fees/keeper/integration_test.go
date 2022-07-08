@@ -10,9 +10,9 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/testutil"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/fees/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/app"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/testutil"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/fees/types"
 	"github.com/Canto-Network/ethermint-v2/crypto/ethsecp256k1"
 	"github.com/Canto-Network/ethermint-v2/encoding"
 	"github.com/Canto-Network/ethermint-v2/tests"

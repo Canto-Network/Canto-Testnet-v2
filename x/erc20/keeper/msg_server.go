@@ -10,8 +10,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/contracts"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/erc20/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/contracts"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/erc20/types"
 )
 
 var _ types.MsgServer = &Keeper{}

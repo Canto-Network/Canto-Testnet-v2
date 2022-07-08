@@ -1,8 +1,8 @@
 package inflation
 
 import (
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/keeper"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/inflation/keeper"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/inflation/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -35,16 +35,21 @@ func InitGenesis(
 	skippedEpochs := data.SkippedEpochs
 	k.SetSkippedEpochs(ctx, skippedEpochs)
 
-	// Get bondedRatio
-	bondedRatio := k.BondedRatio(ctx)
+	//set the current inflationRate
+	initInflation := sdk.NewDecWithPrec(100, 2)
+	err := k.SetCurInflation(ctx, initInflation)
+	if err != nil {
+		panic(err)
+	}
+
+	k.GetInflationRate(ctx)
 
 	// Calculate epoch mint provision
-	epochMintProvision := types.CalculateEpochMintProvision(
-		params,
-		period,
-		epochsPerPeriod,
-		bondedRatio,
-	)
+	epochMintProvision, err := k.CalculateEpochMintProvision(ctx)
+	if err != nil {
+		panic(err)
+	}
+
 	k.SetEpochMintProvision(ctx, epochMintProvision)
 }
 

@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/inflation/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -54,7 +54,11 @@ func (k Keeper) InflationRate(
 	_ *types.QueryInflationRateRequest,
 ) (*types.QueryInflationRateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(c)
-	inflationRate := k.GetInflationRate(ctx)
+	inflationRate, err := k.GetInflationRate(ctx)
+
+	if err != nil {
+		return &types.QueryInflationRateResponse{}, nil
+	}
 
 	return &types.QueryInflationRateResponse{InflationRate: inflationRate}, nil
 }

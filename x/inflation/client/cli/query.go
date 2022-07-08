@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/inflation/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/inflation/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 )

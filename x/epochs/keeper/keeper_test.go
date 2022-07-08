@@ -19,8 +19,8 @@ import (
 
 	evm "github.com/Canto-Network/ethermint-v2/x/evm/types"
 
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/app"
-	"github.com/Canto-Network/Canto-Testnet-v2/v0/x/epochs/types"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/app"
+	"github.com/Canto-Network/Canto-Testnet-v2/v1/x/epochs/types"
 )
 
 var denomMint = evm.DefaultEVMDenom
