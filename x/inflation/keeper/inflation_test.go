@@ -22,8 +22,8 @@ func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {
 			"pass",
 			sdk.NewCoin(denomMint, sdk.NewInt(1_000_000)),
 			func() {},
-			sdk.NewCoin(denomMint, sdk.NewInt(800_000)),
-			sdk.NewDecCoins(sdk.NewDecCoin(denomMint, sdk.NewInt(200_000))),
+			sdk.NewCoin(denomMint, sdk.NewInt(1_000_000)),
+			sdk.DecCoins(nil),
 			true,
 		},
 		{
