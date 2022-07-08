@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/cosmos/cosmos-sdk/snapshots"
@@ -92,19 +91,10 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 				return err
 			}
 
-			// override the app and tendermint configuration
+			// TODO: define our own token
 			customAppTemplate, customAppConfig := initAppConfig()
 
-			err = sdkserver.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig)
-			if err != nil {
-				return err
-			}
-
-			// TODO: remove the lines below once Cosmos SDK v0.46 is released
-			serverCtx := sdkserver.GetServerContextFromCmd(cmd)
-			serverCtx.Config.Consensus.TimeoutCommit = time.Second
-
-			return sdkserver.SetCmdServerContext(cmd, serverCtx)
+			return sdkserver.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig)
 		},
 	}
 

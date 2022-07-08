@@ -86,21 +86,20 @@ if [[ $1 == "pending" ]]; then
 fi
 
 # Allocate genesis accounts (cosmos formatted addresses)
-cantod add-genesis-account $KEY 100000000000000000000000000000010000acanto --keyring-backend $KEYRING
-cantod add-genesis-account $KEY2 100000000000000000000000000000010000acanto --keyring-backend $KEYRING
-cantod add-genesis-account $KEY3 100000000000000000000000000000010000acanto --keyring-backend $KEYRING
+cantod add-genesis-account $KEY 964723926400000000000000000acanto --keyring-backend $KEYRING
+cantod add-genesis-account $KEY2 35276073620000000000000000acanto --keyring-backend $KEYRING
                                  
 # Update total supply with claim values
 #validators_supply=$(cat $HOME/.cantod/config/genesis.json | jq -r '.app_state["bank"]["supply"][0]["amount"]')
 # Bc is required to add this big numbers
 # total_supply=$(bc <<< "$amount_to_claim+$validators_supply")
-total_supply=300000000000000000000000000000030000
+total_supply=1000000000000000000000000000
 cat $HOME/.cantod/config/genesis.json | jq -r --arg total_supply "$total_supply" '.app_state["bank"]["supply"][0]["amount"]=$total_supply' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
 
 echo $KEYRING
 echo $KEY
 # Sign genesis transaction
-cantod gentx $KEY 1000000000000000000000000acanto --keyring-backend $KEYRING --chain-id $CHAINID
+cantod gentx $KEY2 100000000000000000000000acanto --keyring-backend $KEYRING --chain-id $CHAINID
 #cantod gentx $KEY2 1000000000000000000000acanto --keyring-backend $KEYRING --chain-id $CHAINID
 
 # Collect genesis tx
