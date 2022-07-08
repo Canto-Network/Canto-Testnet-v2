@@ -49,8 +49,8 @@ func DefaultParams() Params {
 			BondingTarget: sdk.NewDecWithPrec(67, 2), // 66%
 		},
 		InflationDistribution: InflationDistribution{
-			StakingRewards: sdk.NewDecWithPrec(80, 2), // 80% / (1 - 25%)
-			CommunityPool:  sdk.NewDecWithPrec(20, 2), // 20% / (1 - 25%)
+			StakingRewards: sdk.NewDecWithPrec(100, 2), // 80% / (1 - 25%)
+			CommunityPool:  sdk.NewDecWithPrec(0, 2),   // 20% / (1 - 25%)
 		},
 		EnableInflation: true,
 	}
