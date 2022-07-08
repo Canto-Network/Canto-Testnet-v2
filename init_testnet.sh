@@ -1,7 +1,7 @@
 KEY="mykey"
 KEY2="mykey2"
 KEY3="mykey3"
-CHAINID="canto_9624-1"
+CHAINID="canto_7722-1"
 MONIKER="plex-validator"
 KEYRING="test"
 KEYALGO="eth_secp256k1"
@@ -39,7 +39,7 @@ cat $HOME/.cantod/config/genesis.json | jq '.app_state["inflation"]["params"]["e
 
 
 # Change voting params so that submitted proposals pass immediately for testing
-cat $HOME/.cantod/config/genesis.json| jq '.app_state.gov.voting_params.voting_period="180s"' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
+cat $HOME/.cantod/config/genesis.json| jq '.app_state.gov.voting_params.voting_period="120s"' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
 
 cat $HOME/.cantod/config/genesis.json| jq '.app_state.gov.tally_params.threshold="0.000000000000000000"' > $HOME/.cantod/config/tmp_genesis.json && mv $HOME/.cantod/config/tmp_genesis.json $HOME/.cantod/config/genesis.json
 
@@ -114,5 +114,5 @@ if [[ $1 == "pending" ]]; then
 fi
 
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-cantod start --pruning=nothing --trace --log_level info --minimum-gas-prices=0.0001acanto --json-rpc.api eth,txpool,personal,net,debug,web3 --rpc.laddr "tcp://0.0.0.0:26657" --api.enable
+cantod start --pruning=nothing --trace --log_level info --minimum-gas-prices=0.0001acanto --json-rpc.api eth,txpool,personal,net,debug,web3 --rpc.laddr "tcp://0.0.0.0:26657" --api.enable true
 
