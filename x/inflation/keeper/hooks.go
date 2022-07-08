@@ -43,8 +43,17 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 		return
 	}
 
+
+	k.GetInflationRate(ctx)
+	newProvision, err := k.CalculateEpochMintProvision(ctx)
+	if err != nil {
+		panic(err)
+	}
+	k.SetEpochMintProvision(ctx, newProvision)
+
 	// mint coins, update supply
 	epochMintProvision, found := k.GetEpochMintProvision(ctx)
+
 	if !found {
 		panic("the epochMintProvision was not found")
 	}
@@ -53,35 +62,6 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 	staking, communityPool, err := k.MintAndAllocateInflation(ctx, mintedCoin)
 	if err != nil {
 		panic(err)
-	}
-
-	period := k.GetPeriod(ctx)
-	epochsPerPeriod := k.GetEpochsPerPeriod(ctx)
-	newProvision := epochMintProvision
-
-	// If period is passed, update the period and epochMintProvision. A period is
-	// passed if the current epoch number surpasses the epochsPerPeriod for the
-	// current period. Skipped epochs are subtracted to only account for epochs
-	// where inflation minted tokens.
-	//
-	// Examples:
-	// Given, epochNumber = 1, period = 0, epochPerPeriod = 365, skippedEpochs = 0
-	//   => 1 - 365 * 0 - 0 < 365 --- nothing to do here
-	// Given, epochNumber = 741, period = 1, epochPerPeriod = 365, skippedEpochs = 10
-	//   => 741 - 1 * 365 - 10 > 365 --- a period has passed! we change the epochMintProvision and set a new period
-	if epochNumber-epochsPerPeriod*int64(period)-int64(skippedEpochs) > epochsPerPeriod {
-		period++
-		k.SetPeriod(ctx, period)
-		period = k.GetPeriod(ctx)
-		bondedRatio := k.BondedRatio(ctx)
-		newProvision = types.CalculateEpochMintProvision(
-			params,
-			period,
-			epochsPerPeriod,
-			bondedRatio,
-			k.GetInflationRate(ctx),
-		)
-		k.SetEpochMintProvision(ctx, newProvision)
 	}
 
 	defer func() {

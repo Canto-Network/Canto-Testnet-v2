@@ -35,17 +35,21 @@ func InitGenesis(
 	skippedEpochs := data.SkippedEpochs
 	k.SetSkippedEpochs(ctx, skippedEpochs)
 
-	// Get bondedRatio
-	bondedRatio := k.BondedRatio(ctx)
+	//set the current inflationRate
+	initInflation := sdk.NewDecWithPrec(100, 2)
+	err := k.SetCurInflation(ctx, initInflation)
+	if err != nil {
+		panic(err)
+	}
+
+	k.GetInflationRate(ctx)
 
 	// Calculate epoch mint provision
-	epochMintProvision := types.CalculateEpochMintProvision(
-		params,
-		period,
-		epochsPerPeriod,
-		bondedRatio,
-		k.GetInflationRate(ctx),
-	)
+	epochMintProvision, err := k.CalculateEpochMintProvision(ctx)
+	if err != nil {
+		panic(err)
+	}
+
 	k.SetEpochMintProvision(ctx, epochMintProvision)
 }
 

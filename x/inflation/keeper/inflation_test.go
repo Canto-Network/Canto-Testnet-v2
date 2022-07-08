@@ -71,20 +71,22 @@ func (suite *KeeperTestSuite) TestMintAndAllocateInflation() {
 	}
 }
 
-func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndInflationRate() {
+func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndProvision() {
 	testCases := []struct {
 		name             string
 		bankSupply       int64
 		malleate         func()
 		expInflationRate sdk.Dec
+		expProvision     sdk.Dec
 	}{
 		{
-			"no mint provision",
+			"Low Circulating Supply",
 			400_000_000,
 			func() {
 				suite.app.InflationKeeper.SetEpochMintProvision(suite.ctx, sdk.ZeroDec())
 			},
-			sdk.ZeroDec(),
+			sdk.MustNewDecFromStr("0.007640821917808219"),
+			sdk.MustNewDecFromStr("1115560000000000000000000000.000000000000000000"),
 		},
 		{
 			"no epochs per period",
@@ -93,18 +95,14 @@ func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndInflationRate() {
 				suite.app.InflationKeeper.SetEpochsPerPeriod(suite.ctx, 0)
 			},
 			sdk.ZeroDec(),
+			sdk.ZeroDec(),
 		},
 		{
 			"high supply",
 			800_000_000,
 			func() {},
-			sdk.MustNewDecFromStr("38.671875000000000000"),
-		},
-		{
-			"low supply",
-			400_000_000,
-			func() {},
-			sdk.MustNewDecFromStr(("77.343750000000000000")),
+			sdk.MustNewDecFromStr("0.007640821917808219"),
+			sdk.MustNewDecFromStr("2231120000000000000000000000.000000000000000000"),
 		},
 	}
 	for _, tc := range testCases {
@@ -125,8 +123,12 @@ func (suite *KeeperTestSuite) TestGetCirculatingSupplyAndInflationRate() {
 
 			suite.Require().Equal(decCoin.Amount, circulatingSupply)
 
-			inflationRate := s.app.InflationKeeper.GetInflationRate(suite.ctx)
+			inflationRate, err := s.app.InflationKeeper.GetInflationRate(suite.ctx)
+			suite.Require().NoError(err)
 			suite.Require().Equal(tc.expInflationRate, inflationRate)
+			periodProvision, err := s.app.InflationKeeper.CalculateEpochMintProvision(suite.ctx)
+			suite.Require().NoError(err)
+			suite.Require().Equal(tc.expProvision, periodProvision)
 		})
 	}
 }

@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	evm "github.com/Canto-Network/ethermint-v2/x/evm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-var DefaultInflationDenom = evm.DefaultEVMDenom
+var DefaultInflationDenom = "acanto"
 
 // Parameter store keys
 var (
@@ -44,14 +43,14 @@ func DefaultParams() Params {
 	return Params{
 		MintDenom: DefaultInflationDenom,
 		ExponentialCalculation: ExponentialCalculation{
-			MinInflation:  sdk.NewDec(int64(300_000_000)),
-			MaxInflation:  sdk.NewDecWithPrec(50, 2), // 50%
-			AdjustSpeed:   sdk.NewDec(int64(9_375_000)),
-			BondingTarget: sdk.NewDecWithPrec(66, 2), // 66%
+			MinInflation:  sdk.NewDecWithPrec(5, 2),
+			MaxInflation:  sdk.NewDecWithPrec(500, 2), // 50%
+			AdjustSpeed:   sdk.NewDec(1),
+			BondingTarget: sdk.NewDecWithPrec(67, 2), // 66%
 		},
 		InflationDistribution: InflationDistribution{
-			StakingRewards: sdk.NewDecWithPrec(800000000, 9), // 80% / (1 - 25%)
-			CommunityPool:  sdk.NewDecWithPrec(200000000, 9), // 20% / (1 - 25%)
+			StakingRewards: sdk.NewDecWithPrec(80, 2), // 80% / (1 - 25%)
+			CommunityPool:  sdk.NewDecWithPrec(20, 2), // 20% / (1 - 25%)
 		},
 		EnableInflation: true,
 	}

@@ -2,7 +2,6 @@ package contracts
 
 import (
 	_ "embed" // embed compiled smart contract
-	"encoding/json"
 
 	evmtypes "github.com/Canto-Network/ethermint-v2/x/evm/types"
 )
@@ -16,8 +15,8 @@ var (
 )
 
 func init() {
-	err := json.Unmarshal(callerJSON, &CallerContract)
-	if err != nil {
-		panic(err)
-	}
+	// err := json.Unmarshal(callerJSON, &CallerContract)
+	// if err != nil {
+	// 	panic(err)
+	// }
 }

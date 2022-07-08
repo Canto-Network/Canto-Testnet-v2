@@ -54,7 +54,11 @@ func (k Keeper) InflationRate(
 	_ *types.QueryInflationRateRequest,
 ) (*types.QueryInflationRateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(c)
-	inflationRate := k.GetInflationRate(ctx)
+	inflationRate, err := k.GetInflationRate(ctx)
+
+	if err != nil {
+		return &types.QueryInflationRateResponse{}, nil
+	}
 
 	return &types.QueryInflationRateResponse{InflationRate: inflationRate}, nil
 }

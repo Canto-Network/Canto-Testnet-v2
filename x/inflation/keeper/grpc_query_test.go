@@ -73,13 +73,8 @@ func (suite *KeeperTestSuite) TestEpochMintProvision() {
 		{
 			"default epochMintProvision",
 			func() {
-				params := types.DefaultParams()
-				defaultEpochMintProvision := types.CalculateEpochMintProvision(
-					params,
-					uint64(0),
-					365,
-					sdk.OneDec(),
-				)
+				defaultEpochMintProvision, err := suite.app.InflationKeeper.CalculateEpochMintProvision(suite.ctx)
+				suite.Require().NoError(err)
 				req = &types.QueryEpochMintProvisionRequest{}
 				expRes = &types.QueryEpochMintProvisionResponse{
 					EpochMintProvision: sdk.NewDecCoinFromDec(types.DefaultInflationDenom, defaultEpochMintProvision),
@@ -195,7 +190,7 @@ func (suite *KeeperTestSuite) TestQueryInflationRate() {
 	err := suite.app.InflationKeeper.MintCoins(suite.ctx, mintCoin)
 	suite.Require().NoError(err)
 
-	expInflationRate := sdk.MustNewDecFromStr("77.343750000000000000")
+	expInflationRate := sdk.MustNewDecFromStr("0.007640821917808219")
 	res, err := suite.queryClient.InflationRate(ctx, &types.QueryInflationRateRequest{})
 	suite.Require().NoError(err)
 	suite.Require().Equal(expInflationRate, res.InflationRate)
